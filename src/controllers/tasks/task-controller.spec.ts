@@ -1,5 +1,6 @@
 import { MissingParamError } from "../../utils/errors/missing-param-error"
 import { badRequest } from "../../utils/helpers/http-helper"
+import { HttpRequest } from "../../utils/protocols"
 import { TaskController } from "./task-controller"
 
 interface SutTypes {
@@ -13,6 +14,8 @@ const makeSut = (): SutTypes => {
   }
 }
 
+const makeFakeHttpRequest = (body: any): HttpRequest => ({ body });
+
 describe('Task Controller', () => {
   test('should return 400 if message is not provided', async () => {
     const { sut } = makeSut()
@@ -22,11 +25,9 @@ describe('Task Controller', () => {
 
   test('should return 400 if status is not provided', async () => {
     const { sut } = makeSut()
-    const httpRequest = {
-      body: {
-        message: 'any_message'
-      }
-    }
+    const httpRequest = makeFakeHttpRequest({
+      message: 'any_message'
+    })
     const httpResponse = await sut.handle(httpRequest)
     expect(httpResponse).toEqual(badRequest(new MissingParamError('status')))
   })
