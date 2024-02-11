@@ -19,4 +19,15 @@ describe('Task Controller', () => {
     const httpResponse = await sut.handle({ body: {} })
     expect(httpResponse).toEqual(badRequest(new MissingParamError('Message')))
   })
+
+  test('should return 400 if status is not provided', async () => {
+    const { sut } = makeSut()
+    const httpRequest = {
+      body: {
+        message: 'any_message'
+      }
+    }
+    const httpResponse = await sut.handle(httpRequest)
+    expect(httpResponse).toEqual(badRequest(new MissingParamError('Status')))
+  })
 })
