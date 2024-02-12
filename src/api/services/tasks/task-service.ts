@@ -5,7 +5,7 @@ import { CreateTaskService } from './protocols/add-task-service'
 export class AddTaskService implements CreateTaskService {
   async add(task: CreateTaskDTO): Promise<Task> {
     return {
-      id: 0,
+      id: '',
       ...task
     }
   }

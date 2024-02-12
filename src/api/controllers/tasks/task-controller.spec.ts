@@ -10,7 +10,7 @@ const makeAddTaskServiceStub = () => {
   class AddTaskService implements CreateTaskService {
     async add(task: CreateTaskDTO): Promise<Task> {
       return Promise.resolve({
-        id: 0,
+        id: 'any_valid_id',
         message: 'any_valid_message',
         status: 'any_valid_status'
       })
@@ -36,7 +36,7 @@ const makeSut = (): SutTypes => {
 const makeFakeHttpRequest = (body: any): HttpRequest => ({ body })
 
 const makeFakeTask = (): Task => ({
-  id: 0,
+  id: 'any_valid_id',
   message: 'any_valid_message',
   status: 'any_valid_status'
 })
