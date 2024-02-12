@@ -16,7 +16,7 @@ describe('Task Routes', () => {
   })
 
   beforeEach(async () => {
-    taskCollection = await MongoHelper.getCollection('tasks')
+    taskCollection = await MongoHelper.getCollection('Task')
     await taskCollection.deleteMany({})
   })
 

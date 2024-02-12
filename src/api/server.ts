@@ -1,6 +1,5 @@
-import { PrismaClient } from '@prisma/client'
 import env from './config/env'
-const prisma = new PrismaClient()
+import prisma from './config/prismaClient'
 
 async function main() {
   const app = (await import('./config/app')).default

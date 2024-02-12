@@ -14,13 +14,14 @@ describe('AddDbTaskRepository', () => {
   })
 
   beforeEach(async () => {
-    taskCollection = await MongoHelper.getCollection('tasks')
+    taskCollection = await MongoHelper.getCollection('Task')
     await taskCollection.deleteMany({})
   })
   test('should add a task on success', async () => {
     const sut = new AddTaskDbRepository()
     await sut.add({
-      message: 'any_message'
+      message: 'any_message',
+      status: 'any_status'
     })
     const task = await taskCollection.findOne({ message: 'any_message' })
     expect(task).toBeTruthy()

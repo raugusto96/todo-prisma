@@ -7,5 +7,5 @@ export enum STATUS {
 export interface Task {
   id: string
   message: string
-  status: STATUS
+  status: string
 }
