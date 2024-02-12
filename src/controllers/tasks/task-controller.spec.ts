@@ -1,4 +1,4 @@
-import { badRequest } from '../../utils/helpers/http-helper'
+import { badRequest, ok } from '../../utils/helpers/http-helper'
 import { HttpRequest, HttpResponse } from '../../utils/protocols'
 import { TaskController } from './task-controller'
 import { CreateTaskDTO } from '../../models/dtos'
@@ -35,13 +35,10 @@ const makeSut = (): SutTypes => {
 
 const makeFakeHttpRequest = (body: any): HttpRequest => ({ body })
 
-const makeFakeHttpResponse = (): HttpResponse => ({
-  statusCode: 200,
-  body: {
-    id: 0,
-    message: 'any_valid_message',
-    status: 'any_valid_status'
-  }
+const makeFakeTask = (): Task => ({
+  id: 0,
+  message: 'any_valid_message',
+  status: 'any_valid_status'
 })
 
 describe('Task Controller', () => {
@@ -81,6 +78,6 @@ describe('Task Controller', () => {
       status: 'any_status'
     })
     const httpResponse = await sut.handle(httpRequest)
-    expect(httpResponse).toEqual(makeFakeHttpResponse())
+    expect(httpResponse).toEqual(ok(makeFakeTask()))
   })
 })

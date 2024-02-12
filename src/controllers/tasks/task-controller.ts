@@ -1,5 +1,5 @@
 import { Controller, HttpRequest, HttpResponse } from '../../utils/protocols'
-import { badRequest, serverError } from '../../utils/helpers/http-helper'
+import { badRequest, ok, serverError } from '../../utils/helpers/http-helper'
 import { MissingParamError } from '../../utils/errors/missing-param-error'
 import { CreateTaskService } from '../../services/tasks/protocols/add-task-service'
 
@@ -16,7 +16,7 @@ export class TaskController implements Controller {
       }
       const { message, status } = httpRequest.body
       const task = await this.addTaskService.add({ message, status })
-      return { statusCode: 200, body: task }
+      return ok(task)
     } catch (error) {
       return serverError(error)
     }
