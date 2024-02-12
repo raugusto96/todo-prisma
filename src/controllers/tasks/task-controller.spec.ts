@@ -1,5 +1,5 @@
 import { badRequest } from '../../utils/helpers/http-helper'
-import { HttpRequest } from '../../utils/protocols'
+import { HttpRequest, HttpResponse } from '../../utils/protocols'
 import { TaskController } from './task-controller'
 import { CreateTaskDTO } from '../../models/dtos'
 import { Task } from '../../models/usecases'
@@ -34,6 +34,15 @@ const makeSut = (): SutTypes => {
 }
 
 const makeFakeHttpRequest = (body: any): HttpRequest => ({ body })
+
+const makeFakeHttpResponse = (): HttpResponse => ({
+  statusCode: 200,
+  body: {
+    id: 0,
+    message: 'any_valid_message',
+    status: 'any_valid_status'
+  }
+})
 
 describe('Task Controller', () => {
   test('should return 400 if message is not provided', async () => {
@@ -72,13 +81,6 @@ describe('Task Controller', () => {
       status: 'any_status'
     })
     const httpResponse = await sut.handle(httpRequest)
-    expect(httpResponse).toEqual({
-      statusCode: 200,
-      body: {
-        id: 0,
-        message: 'any_valid_message',
-        status: 'any_valid_status'
-      }
-    })
+    expect(httpResponse).toEqual(makeFakeHttpResponse())
   })
 })
