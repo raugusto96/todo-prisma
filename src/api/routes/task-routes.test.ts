@@ -25,8 +25,7 @@ describe('Task Routes', () => {
       await request(app)
         .post('/api/task')
         .send({
-          message: 'Task',
-          status: 'pending'
+          message: 'Task'
         })
         .expect(200)
     })

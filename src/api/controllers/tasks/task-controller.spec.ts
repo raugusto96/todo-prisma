@@ -2,21 +2,21 @@ import { badRequest, ok } from '../../utils/helpers/http-helper'
 import { HttpRequest, HttpResponse } from '../../utils/protocols'
 import { TaskController } from './task-controller'
 import { CreateTaskDTO } from '../../models/dtos'
-import { Task } from '../../models/usecases'
+import { STATUS, Task } from '../../models/usecases'
 import { MissingParamError } from '../../utils/errors/missing-param-error'
 import { AddDbTaskRepository } from '../../repositories/db/usecases/add-task'
 
-const makeAddTaskServiceStub = () => {
-  class AddTaskService implements AddDbTaskRepository {
+const makeAddDbTaskRepositoryStub = () => {
+  class AddDbTaskRepository implements AddDbTaskRepository {
     async add(task: CreateTaskDTO): Promise<Task> {
       return Promise.resolve({
         id: 'any_valid_id',
         message: 'any_valid_message',
-        status: 'any_valid_status'
+        status: STATUS.PENDING
       })
     }
   }
-  return new AddTaskService()
+  return new AddDbTaskRepository()
 }
 
 interface SutTypes {
@@ -25,7 +25,7 @@ interface SutTypes {
 }
 
 const makeSut = (): SutTypes => {
-  const addTaskServiceStub = makeAddTaskServiceStub()
+  const addTaskServiceStub = makeAddDbTaskRepositoryStub()
   const sut = new TaskController(addTaskServiceStub)
   return {
     sut,
@@ -38,7 +38,7 @@ const makeFakeHttpRequest = (body: any): HttpRequest => ({ body })
 const makeFakeTask = (): Task => ({
   id: 'any_valid_id',
   message: 'any_valid_message',
-  status: 'any_valid_status'
+  status: STATUS.PENDING
 })
 
 describe('Task Controller', () => {
