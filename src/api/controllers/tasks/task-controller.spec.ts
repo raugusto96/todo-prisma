@@ -4,10 +4,10 @@ import { TaskController } from './task-controller'
 import { CreateTaskDTO } from '../../models/dtos'
 import { Task } from '../../models/usecases'
 import { MissingParamError } from '../../utils/errors/missing-param-error'
-import { CreateTaskService } from '../../services/tasks/protocols/add-task-service'
+import { AddDbTaskRepository } from '../../repositories/db/usecases/add-task'
 
 const makeAddTaskServiceStub = () => {
-  class AddTaskService implements CreateTaskService {
+  class AddTaskService implements AddDbTaskRepository {
     async add(task: CreateTaskDTO): Promise<Task> {
       return Promise.resolve({
         id: 'any_valid_id',
@@ -21,7 +21,7 @@ const makeAddTaskServiceStub = () => {
 
 interface SutTypes {
   sut: TaskController
-  addTaskServiceStub: CreateTaskService
+  addTaskServiceStub: AddDbTaskRepository
 }
 
 const makeSut = (): SutTypes => {
@@ -48,34 +48,22 @@ describe('Task Controller', () => {
     expect(httpResponse).toEqual(badRequest(new MissingParamError('message')))
   })
 
-  test('should return 400 if status is not provided', async () => {
-    const { sut } = makeSut()
-    const httpRequest = makeFakeHttpRequest({
-      message: 'any_message'
-    })
-    const httpResponse = await sut.handle(httpRequest)
-    expect(httpResponse).toEqual(badRequest(new MissingParamError('status')))
-  })
-
   test('should call AddTaskService with correct values', async () => {
     const { sut, addTaskServiceStub } = makeSut()
     const addSpy = jest.spyOn(addTaskServiceStub, 'add')
     const httpRequest = makeFakeHttpRequest({
-      message: 'any_message',
-      status: 'any_status'
+      message: 'any_message'
     })
     await sut.handle(httpRequest)
     expect(addSpy).toHaveBeenCalledWith({
-      message: 'any_message',
-      status: 'any_status'
+      message: 'any_message'
     })
   })
 
   test('should returns an task on success', async () => {
     const { sut } = makeSut()
     const httpRequest = makeFakeHttpRequest({
-      message: 'any_message',
-      status: 'any_status'
+      message: 'any_message'
     })
     const httpResponse = await sut.handle(httpRequest)
     expect(httpResponse).toEqual(ok(makeFakeTask()))
