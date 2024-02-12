@@ -1,0 +1,17 @@
+version: "3.8"
+services:
+  mongo:
+    build:
+      context: ./src/docker/mongodb_rs
+      args:
+        MONGO_VERSION: 6
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_DATABASE: db
+      MONGO_REPLICA_HOST: localhost
+      MONGO_REPLICA_PORT: "27017"
+      MONGO_COMMAND: 'mongosh'
+    ports:
+      - 27017:27017
+    restart: always
