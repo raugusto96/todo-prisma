@@ -1,10 +1,10 @@
 import { Controller, HttpRequest, HttpResponse } from '../../utils/protocols'
 import { badRequest, ok, serverError } from '../../utils/helpers/http-helper'
 import { MissingParamError } from '../../utils/errors/missing-param-error'
-import { CreateTaskService } from '../../services/tasks/protocols/add-task-service'
+import { TaskService } from '../../services/tasks/task-service'
 
 export class TaskController implements Controller {
-  constructor(private readonly addTaskService: CreateTaskService) {}
+  constructor(private readonly addTaskService: TaskService) {}
 
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
