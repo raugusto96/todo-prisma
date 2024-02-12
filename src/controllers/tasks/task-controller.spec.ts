@@ -6,12 +6,7 @@ import { Task } from '../../models/usecases'
 import { MissingParamError } from '../../utils/errors/missing-param-error'
 import { CreateTaskService } from '../../services/tasks/protocols/add-task-service'
 
-interface SutTypes {
-  sut: TaskController
-  addTaskServiceStub: CreateTaskService
-}
-
-const makeSut = (): SutTypes => {
+const makeAddTaskServiceStub = () => {
   class AddTaskService implements CreateTaskService {
     async add(task: CreateTaskDTO): Promise<Task> {
       return Promise.resolve({
@@ -21,7 +16,16 @@ const makeSut = (): SutTypes => {
       })
     }
   }
-  const addTaskServiceStub = new AddTaskService()
+  return new AddTaskService()
+}
+
+interface SutTypes {
+  sut: TaskController
+  addTaskServiceStub: CreateTaskService
+}
+
+const makeSut = (): SutTypes => {
+  const addTaskServiceStub = makeAddTaskServiceStub()
   const sut = new TaskController(addTaskServiceStub)
   return {
     sut,
