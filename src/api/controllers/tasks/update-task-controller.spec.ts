@@ -3,10 +3,11 @@ import { MissingParamError } from '../../utils/errors'
 import { badRequest, notFound, ok } from '../../utils/helpers/http-helper'
 import { UpdateTaskController } from './update-task-controller'
 import { UpdateDbTaskRepository } from '../../repositories/db/usecases/update-task'
+import { NotFoundEntityError } from '../../utils/errors/not-found-entity-error'
 
 const makeUpdateDbTaskRepositoryStub = () => {
   class UpdateTaskDbRepository implements UpdateDbTaskRepository {
-    async update(taskId: string): Promise<Task> {
+    async update(taskId: string): Promise<Task | null> {
       return Promise.resolve({
         id: 'any_valid_id',
         message: 'any_valid_message',
@@ -45,6 +46,24 @@ describe('UpdateTaskController', () => {
     }
     const httpResponse = await sut.handle(httpRequest)
     expect(httpResponse).toEqual(badRequest(new MissingParamError('taskId')))
+  })
+
+  test('should return 404 if UpdateDbTaskRepository do not find a task', async () => {
+    const { sut, updateDbTaskRepositoryStub } = makeSut()
+    const httpRequest = {
+      body: {
+        message: 'any_message_to_update',
+        status: 'any_status_to_update'
+      },
+      params: {
+        taskId: 'any_valid_id'
+      }
+    }
+    jest
+      .spyOn(updateDbTaskRepositoryStub, 'update')
+      .mockReturnValueOnce(Promise.resolve(null))
+    const httpResponse = await sut.handle(httpRequest)
+    expect(httpResponse).toEqual(notFound(new NotFoundEntityError('Task')))
   })
 
   test('should call UpdateDbTaskRepository with correct value', async () => {
