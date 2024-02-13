@@ -4,6 +4,7 @@ import { MissingParamError } from '../../utils/errors'
 import { NotFoundEntityError } from '../../utils/errors/not-found-entity-error'
 import {
   badRequest,
+  noContent,
   notFound,
   ok,
   serverError
@@ -25,7 +26,9 @@ export class DeleteTaskController implements Controller {
       }
       const { taskId } = httpRequest.params
       const isNull = await this.deleteDbTaskRepository.delete(taskId)
-      if (isNull === null) return notFound(new NotFoundEntityError('Task'))
+      return isNull === null
+        ? notFound(new NotFoundEntityError('Task'))
+        : noContent()
     } catch (error) {
       return serverError(error)
     }
