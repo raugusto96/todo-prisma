@@ -34,17 +34,24 @@ const makeSut = (): SutTypes => {
 describe('LoadTaskController', () => {
   test('should return 400 if taskId is not provided', async () => {
     const { sut } = makeSut()
-    const httpResponse = await sut.handle({ taskId: '' })
+    const httpRequest = {
+      body: {},
+      params: {}
+    }
+    const httpResponse = await sut.handle(httpRequest)
     expect(httpResponse).toEqual(badRequest(new MissingParamError('taskId')))
   })
 
   test('should call LoadTaskRepository with correct values', async () => {
     const { sut, loadTaskRepository } = makeSut()
     const loadSpy = jest.spyOn(loadTaskRepository, 'load')
-    const request = {
-      taskId: 'any_valid_id'
+    const httpRequest = {
+      body: {},
+      params: {
+        taskId: 'any_valid_id'
+      }
     }
-    await sut.handle(request)
+    await sut.handle(httpRequest)
     expect(loadSpy).toHaveBeenCalledWith('any_valid_id')
   })
 })
