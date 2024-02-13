@@ -38,12 +38,6 @@ const makeFakeRequest = (body?: any, params?: any): HttpRequest => ({
   params
 })
 
-const makeFakeTask = (): Task => ({
-  id: 'any_valid_id',
-  message: 'any_valid_message',
-  status: 'any_valid_status'
-})
-
 describe('UpdateTaskController', () => {
   test('should return 400 if taskId is not provided', async () => {
     const { sut } = makeSut()
