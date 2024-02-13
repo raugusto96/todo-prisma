@@ -1,6 +1,6 @@
 import { Task } from '@prisma/client'
 import { MissingParamError } from '../../utils/errors'
-import { badRequest, notFound } from '../../utils/helpers/http-helper'
+import { badRequest, notFound, ok } from '../../utils/helpers/http-helper'
 import { LoadTaskController } from './load-task-controller'
 import { LoadDbTaskRepository } from '../../repositories/db/usecases/load-task'
 import { NotFoundEntityError } from '../../utils/errors/not-found-entity-error'
@@ -31,6 +31,12 @@ const makeSut = (): SutTypes => {
     loadTaskRepository
   }
 }
+
+const makeFakeTask = (): Task => ({
+  id: 'any_valid_id',
+  message: 'any_valid_message',
+  status: 'any_valid_status'
+})
 
 describe('LoadTaskController', () => {
   test('should return 400 if taskId is not provided', async () => {
@@ -69,5 +75,17 @@ describe('LoadTaskController', () => {
     }
     await sut.handle(httpRequest)
     expect(loadSpy).toHaveBeenCalledWith('any_valid_id')
+  })
+
+  test('should returns an task on success', async () => {
+    const { sut } = makeSut()
+    const httpRequest = {
+      body: {},
+      params: {
+        taskId: 'any_valid_id'
+      }
+    }
+    const httpResponse = await sut.handle(httpRequest)
+    expect(httpResponse).toEqual(ok(makeFakeTask()))
   })
 })
