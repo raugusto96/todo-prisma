@@ -21,15 +21,15 @@ const makeAddDbTaskRepositoryStub = () => {
 
 interface SutTypes {
   sut: AddTaskController
-  addTaskServiceStub: AddDbTaskRepository
+  addDbTaskRepositoryStub: AddDbTaskRepository
 }
 
 const makeSut = (): SutTypes => {
-  const addTaskServiceStub = makeAddDbTaskRepositoryStub()
-  const sut = new AddTaskController(addTaskServiceStub)
+  const addDbTaskRepositoryStub = makeAddDbTaskRepositoryStub()
+  const sut = new AddTaskController(addDbTaskRepositoryStub)
   return {
     sut,
-    addTaskServiceStub
+    addDbTaskRepositoryStub
   }
 }
 
@@ -48,9 +48,9 @@ describe('AddTaskController', () => {
     expect(httpResponse).toEqual(badRequest(new MissingParamError('message')))
   })
 
-  test('should call AddTaskService with correct values', async () => {
-    const { sut, addTaskServiceStub } = makeSut()
-    const addSpy = jest.spyOn(addTaskServiceStub, 'add')
+  test('should call AddDbTaskRepository with correct values', async () => {
+    const { sut, addDbTaskRepositoryStub } = makeSut()
+    const addSpy = jest.spyOn(addDbTaskRepositoryStub, 'add')
     const httpRequest = makeFakeHttpRequest({
       message: 'any_message'
     })
