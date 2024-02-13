@@ -4,7 +4,7 @@ import { UpdateTaskDbRepository } from './update-db-task'
 
 const makeLoadTaskDbRepositoryStub = () => {
   class LoadTaskDbRepository implements LoadDbTaskRepository {
-    async load(taskId: string): Promise<Task> {
+    async load(taskId: string): Promise<Task | null> {
       return Promise.resolve({
         id: 'any_valid_id',
         message: 'any_valid_message',
@@ -35,5 +35,14 @@ describe('UpdateDbTaskRepository', () => {
     const loadSpy = jest.spyOn(loadTaskDbRepositoryStub, 'load')
     await sut.update('any_valid_id')
     expect(loadSpy).toHaveBeenCalledWith('any_valid_id')
+  })
+
+  test('should returns null if LoadDbTaskRepository not found an task with id', async () => {
+    const { sut, loadTaskDbRepositoryStub } = makeSut()
+    jest
+      .spyOn(loadTaskDbRepositoryStub, 'load')
+      .mockReturnValueOnce(Promise.resolve(null))
+    const task = await sut.update('any_valid_id')
+    expect(task).toBeNull()
   })
 })
