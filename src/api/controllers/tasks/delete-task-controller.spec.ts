@@ -1,5 +1,10 @@
 import { MissingParamError } from '../../utils/errors'
-import { badRequest, notFound, ok } from '../../utils/helpers/http-helper'
+import {
+  badRequest,
+  noContent,
+  notFound,
+  ok
+} from '../../utils/helpers/http-helper'
 import { NotFoundEntityError } from '../../utils/errors/not-found-entity-error'
 import { HttpRequest } from '../../utils/protocols'
 import { DeleteDbTaskRepository } from '../../repositories/db/usecases/delete-task'
@@ -65,5 +70,17 @@ describe('DeleteTaskController', () => {
     const deleteSpy = jest.spyOn(deleteDbTaskRepositoryStub, 'delete')
     await sut.handle(httpRequest)
     expect(deleteSpy).toHaveBeenCalledWith('any_valid_id')
+  })
+
+  test('should return 204 if delete succeeds', async () => {
+    const { sut } = makeSut()
+    const httpRequest = makeFakeRequest(
+      {},
+      {
+        taskId: 'any_valid_id'
+      }
+    )
+    const httpResponse = await sut.handle(httpRequest)
+    expect(httpResponse).toEqual(noContent())
   })
 })
