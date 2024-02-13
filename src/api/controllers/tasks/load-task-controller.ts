@@ -1,6 +1,11 @@
 import { LoadDbTaskRepository } from '../../repositories/db/usecases/load-task'
 import { MissingParamError } from '../../utils/errors'
-import { badRequest, serverError } from '../../utils/helpers/http-helper'
+import { NotFoundEntityError } from '../../utils/errors/not-found-entity-error'
+import {
+  badRequest,
+  notFound,
+  serverError
+} from '../../utils/helpers/http-helper'
 import { Controller, HttpRequest, HttpResponse } from '../../utils/protocols'
 
 export class LoadTaskController implements Controller {
@@ -15,7 +20,10 @@ export class LoadTaskController implements Controller {
         }
       }
       const { taskId } = httpRequest.params
-      await this.loadDbTaskRepository.load(taskId)
+      const task = await this.loadDbTaskRepository.load(taskId)
+      if (!task) {
+        return notFound(new NotFoundEntityError('Task'))
+      }
       return {
         statusCode: 200,
         body: ''
