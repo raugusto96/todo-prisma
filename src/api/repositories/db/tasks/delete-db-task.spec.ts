@@ -71,8 +71,6 @@ describe('DeleteDbTaskRepository', () => {
         status: 'any_status'
       }
     ])
-    // const objectId = new ObjectId(tasks.insertedIds[0])
-    // const deletedTask = await taskCollection.deleteOne({ _id: objectId })
     await sut.delete(tasks.insertedIds[0].toString())
     const updatedTasks = await taskCollection.find().toArray()
     expect(updatedTasks).toHaveLength(1)
