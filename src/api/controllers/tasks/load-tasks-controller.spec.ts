@@ -1,5 +1,5 @@
 import { Task } from '@prisma/client'
-import { ok } from '../../utils/helpers/http-helper'
+import { noContent, ok } from '../../utils/helpers/http-helper'
 import { LoadDbTasksRepository } from '../../repositories/db/usecases/load-tasks'
 import { LoadTasksController } from './load-tasks-controller'
 
@@ -41,7 +41,7 @@ const makeFakeTask = (): Task[] => [
 ]
 
 describe('LoadTaskController', () => {
-  test('should return an empty array if LoadTasksRepository not find an task', async () => {
+  test('should return 204 if LoadTasksRepository not find any task', async () => {
     const { sut, loadTasksRepository } = makeSut()
     jest
       .spyOn(loadTasksRepository, 'load')
@@ -50,7 +50,7 @@ describe('LoadTaskController', () => {
       body: {}
     }
     const httpResponse = await sut.handle(httpRequest)
-    expect(httpResponse).toEqual(ok([]))
+    expect(httpResponse).toEqual(noContent())
   })
 
   test('should returns an task array on success', async () => {

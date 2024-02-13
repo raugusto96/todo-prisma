@@ -1,5 +1,5 @@
 import { LoadDbTasksRepository } from '../../repositories/db/usecases/load-tasks'
-import { ok, serverError } from '../../utils/helpers/http-helper'
+import { noContent, ok, serverError } from '../../utils/helpers/http-helper'
 import { Controller, HttpRequest, HttpResponse } from '../../utils/protocols'
 
 export class LoadTasksController implements Controller {
@@ -8,7 +8,7 @@ export class LoadTasksController implements Controller {
   async handle(_httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
       const tasks = await this.loadDbTasksRepository.load()
-      return ok(tasks)
+      return tasks.length ? ok(tasks) : noContent()
     } catch (error) {
       return serverError(error)
     }
