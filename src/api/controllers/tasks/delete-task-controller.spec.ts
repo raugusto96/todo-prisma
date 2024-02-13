@@ -53,4 +53,17 @@ describe('DeleteTaskController', () => {
     const httpResponse = await sut.handle(httpRequest)
     expect(httpResponse).toEqual(notFound(new NotFoundEntityError('Task')))
   })
+
+  test('should call DeleteDbTaskRepository with correct values', async () => {
+    const { sut, deleteDbTaskRepositoryStub } = makeSut()
+    const httpRequest = makeFakeRequest(
+      {},
+      {
+        taskId: 'any_valid_id'
+      }
+    )
+    const deleteSpy = jest.spyOn(deleteDbTaskRepositoryStub, 'delete')
+    await sut.handle(httpRequest)
+    expect(deleteSpy).toHaveBeenCalledWith('any_valid_id')
+  })
 })
