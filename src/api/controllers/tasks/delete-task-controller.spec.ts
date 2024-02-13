@@ -5,21 +5,24 @@ import { HttpRequest } from '../../utils/protocols'
 import { DeleteDbTaskRepository } from '../../repositories/db/usecases/delete-task'
 import { DeleteTaskController } from './delete-task-controller'
 
-const makeUpdateDbTaskRepositoryStub = () => {
+const makeDeleteDbTaskRepositoryStub = () => {
   class DeleteTaskDbRepository implements DeleteDbTaskRepository {
-    async delete(taskId: string): Promise<void> {}
+    async delete(taskId: string): Promise<void | null> {}
   }
   return new DeleteTaskDbRepository()
 }
 
 interface SutTypes {
   sut: DeleteTaskController
+  deleteDbTaskRepositoryStub: DeleteDbTaskRepository
 }
 
 const makeSut = (): SutTypes => {
-  const sut = new DeleteTaskController()
+  const deleteDbTaskRepositoryStub = makeDeleteDbTaskRepositoryStub()
+  const sut = new DeleteTaskController(deleteDbTaskRepositoryStub)
   return {
-    sut
+    sut,
+    deleteDbTaskRepositoryStub
   }
 }
 
@@ -28,11 +31,26 @@ const makeFakeRequest = (body?: any, params?: any): HttpRequest => ({
   params
 })
 
-describe('UpdateTaskController', () => {
+describe('DeleteTaskController', () => {
   test('should return 400 if taskId is not provided', async () => {
     const { sut } = makeSut()
     const httpRequest = makeFakeRequest({}, {})
     const httpResponse = await sut.handle(httpRequest)
     expect(httpResponse).toEqual(badRequest(new MissingParamError('taskId')))
+  })
+
+  test('should return 404 if DeleteDbTaskRepository do not find a task with taskId', async () => {
+    const { sut, deleteDbTaskRepositoryStub } = makeSut()
+    const httpRequest = makeFakeRequest(
+      {},
+      {
+        taskId: 'any_valid_id'
+      }
+    )
+    jest
+      .spyOn(deleteDbTaskRepositoryStub, 'delete')
+      .mockReturnValueOnce(Promise.resolve(null))
+    const httpResponse = await sut.handle(httpRequest)
+    expect(httpResponse).toEqual(notFound(new NotFoundEntityError('Task')))
   })
 })
