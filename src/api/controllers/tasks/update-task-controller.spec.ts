@@ -11,8 +11,8 @@ const makeUpdateDbTaskRepositoryStub = () => {
     async update(taskId: string): Promise<Task | null> {
       return Promise.resolve({
         id: 'any_valid_id',
-        message: 'any_valid_message',
-        status: 'any_valid_status'
+        message: 'any_updated_message',
+        status: 'any_updated_status'
       })
     }
   }
@@ -85,8 +85,30 @@ describe('UpdateTaskController', () => {
     const updateSpy = jest.spyOn(updateDbTaskRepositoryStub, 'update')
     await sut.handle(httpRequest)
     expect(updateSpy).toHaveBeenCalledWith('any_valid_id', {
-      message: httpRequest.body.message,
-      status: httpRequest.body.status
+      message: 'any_message_to_update',
+      status: 'any_status_to_update'
     })
+  })
+
+  test('should returns a task on success', async () => {
+    const { sut } = makeSut()
+    const httpRequest = makeFakeRequest(
+      {
+        message: 'any_message_to_update',
+        status: 'any_status_to_update'
+      },
+      {
+        taskId: 'any_valid_id'
+      }
+    )
+
+    const httpResponse = await sut.handle(httpRequest)
+    expect(httpResponse).toEqual(
+      ok({
+        id: 'any_valid_id',
+        message: 'any_updated_message',
+        status: 'any_updated_status'
+      })
+    )
   })
 })
