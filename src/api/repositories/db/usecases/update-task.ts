@@ -1,5 +1,5 @@
-import { Task } from '@prisma/client'
+import { Prisma, Task } from '@prisma/client'
 
 export interface UpdateDbTaskRepository {
-  update: (taskId: string) => Promise<Task | null>
+  update: (taskId: string, data: Prisma.TaskUpdateInput) => Promise<Task | null>
 }
