@@ -41,7 +41,7 @@ const makeFakeTask = (): Task => ({
   status: STATUS.PENDING
 })
 
-describe('Task Controller', () => {
+describe('AddTaskController', () => {
   test('should return 400 if message is not provided', async () => {
     const { sut } = makeSut()
     const httpResponse = await sut.handle({ body: {} })
