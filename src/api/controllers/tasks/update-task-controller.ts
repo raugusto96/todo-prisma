@@ -29,6 +29,7 @@ export class UpdateTaskController implements Controller {
         status
       })
       if (!task) return notFound(new NotFoundEntityError('Task'))
+      return ok(task)
     } catch (error) {
       return serverError(error)
     }
