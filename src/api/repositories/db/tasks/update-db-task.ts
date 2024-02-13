@@ -5,9 +5,9 @@ import { LoadDbTaskRepository } from '../usecases/load-task'
 export class UpdateTaskDbRepository implements UpdateDbTaskRepository {
   constructor(private readonly loadDbTaskRepository: LoadDbTaskRepository) {}
 
-  async update(taskId: string): Promise<Task> {
-    console.log(taskId)
-    await this.loadDbTaskRepository.load(taskId)
+  async update(taskId: string): Promise<Task | null> {
+    const task = await this.loadDbTaskRepository.load(taskId)
+    if (!task) return null
     return {
       id: '',
       message: '',
