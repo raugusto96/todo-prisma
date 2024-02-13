@@ -33,6 +33,11 @@ const makeSut = (): SutTypes => {
   }
 }
 
+const makeFakeData = (): UpdateTaskDTO => ({
+  message: 'any_updated_message',
+  status: 'any_updated_status'
+})
+
 let taskCollection: Collection
 
 describe('UpdateDbTaskRepository', () => {
@@ -56,33 +61,22 @@ describe('UpdateDbTaskRepository', () => {
       message: 'any_message',
       status: 'any_status'
     })
-    const data: UpdateTaskDTO = {
-      message: 'any_updated_message',
-      status: 'any_updated_message'
-    }
-    await sut.update(task.insertedId.toString(), data)
+    await sut.update(task.insertedId.toString(), makeFakeData())
     expect(loadSpy).toHaveBeenCalledWith(task.insertedId.toString())
   })
 
   test('should returns null if LoadDbTaskRepository not found an task with id', async () => {
     const { sut, loadTaskDbRepositoryStub } = makeSut()
-    const data: UpdateTaskDTO = {
-      message: 'any_updated_message',
-      status: 'any_updated_message'
-    }
     jest
       .spyOn(loadTaskDbRepositoryStub, 'load')
       .mockReturnValueOnce(Promise.resolve(null))
-    const task = await sut.update('any_valid_id', data)
+    const task = await sut.update('any_valid_id', makeFakeData())
     expect(task).toBeNull()
   })
 
   test('should returns an updated task on success', async () => {
     const { sut } = makeSut()
-    const data: UpdateTaskDTO = {
-      message: 'any_updated_message',
-      status: 'any_updated_status'
-    }
+    const data = makeFakeData()
     const task = await taskCollection.insertOne({
       message: 'any_message',
       status: 'any_status'
@@ -96,7 +90,10 @@ describe('UpdateDbTaskRepository', () => {
         $set: { message: data.message, status: data.status }
       }
     )
-    const updatedTask = await sut.update(task.insertedId.toString(), data)
+    const updatedTask = await sut.update(
+      task.insertedId.toString(),
+      makeFakeData()
+    )
     expect(updatedTask).toEqual({
       id: task.insertedId.toString(),
       message: 'any_updated_message',
