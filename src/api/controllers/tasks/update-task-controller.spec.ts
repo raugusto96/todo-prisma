@@ -4,6 +4,7 @@ import { badRequest, notFound, ok } from '../../utils/helpers/http-helper'
 import { UpdateTaskController } from './update-task-controller'
 import { UpdateDbTaskRepository } from '../../repositories/db/usecases/update-task'
 import { NotFoundEntityError } from '../../utils/errors/not-found-entity-error'
+import { HttpRequest } from '../../utils/protocols'
 
 const makeUpdateDbTaskRepositoryStub = () => {
   class UpdateTaskDbRepository implements UpdateDbTaskRepository {
@@ -32,6 +33,11 @@ const makeSut = (): SutTypes => {
   }
 }
 
+const makeFakeRequest = (body?: any, params?: any): HttpRequest => ({
+  body,
+  params
+})
+
 const makeFakeTask = (): Task => ({
   id: 'any_valid_id',
   message: 'any_valid_message',
@@ -41,24 +47,22 @@ const makeFakeTask = (): Task => ({
 describe('UpdateTaskController', () => {
   test('should return 400 if taskId is not provided', async () => {
     const { sut } = makeSut()
-    const httpRequest = {
-      params: {}
-    }
+    const httpRequest = makeFakeRequest({}, {})
     const httpResponse = await sut.handle(httpRequest)
     expect(httpResponse).toEqual(badRequest(new MissingParamError('taskId')))
   })
 
   test('should return 404 if UpdateDbTaskRepository do not find a task', async () => {
     const { sut, updateDbTaskRepositoryStub } = makeSut()
-    const httpRequest = {
-      body: {
+    const httpRequest = makeFakeRequest(
+      {
         message: 'any_message_to_update',
         status: 'any_status_to_update'
       },
-      params: {
+      {
         taskId: 'any_valid_id'
       }
-    }
+    )
     jest
       .spyOn(updateDbTaskRepositoryStub, 'update')
       .mockReturnValueOnce(Promise.resolve(null))
@@ -68,15 +72,16 @@ describe('UpdateTaskController', () => {
 
   test('should call UpdateDbTaskRepository with correct value', async () => {
     const { sut, updateDbTaskRepositoryStub } = makeSut()
-    const httpRequest = {
-      body: {
+    const httpRequest = makeFakeRequest(
+      {
         message: 'any_message_to_update',
         status: 'any_status_to_update'
       },
-      params: {
+      {
         taskId: 'any_valid_id'
       }
-    }
+    )
+
     const updateSpy = jest.spyOn(updateDbTaskRepositoryStub, 'update')
     await sut.handle(httpRequest)
     expect(updateSpy).toHaveBeenCalledWith('any_valid_id', {
