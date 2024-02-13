@@ -4,10 +4,12 @@ import { makeAddTaskController } from '../utils/factories/controllers/tasks/add-
 import { makeLoadTaskController } from '../utils/factories/controllers/tasks/load-task-controller-factory'
 import { makeLoadTasksController } from '../utils/factories/controllers/tasks/load-tasks-controller-factory'
 import { makeUpdateTasksController } from '../utils/factories/controllers/tasks/update-tasks-controller-factory'
+import { makeDeleteTaskController } from '../utils/factories/controllers/tasks/delete-task-controller-factory'
 
 export default (router: Router): void => {
   router.post('/task', adaptRoute(makeAddTaskController()))
   router.get('/task', adaptRoute(makeLoadTasksController()))
   router.get('/task/:taskId', adaptRoute(makeLoadTaskController()))
   router.put('/task/:taskId', adaptRoute(makeUpdateTasksController()))
+  router.delete('/task/:taskId', adaptRoute(makeDeleteTaskController()))
 }
