@@ -1,6 +1,5 @@
-import { LoadDbTaskRepository } from '../../repositories/db/usecases/load-task'
+import { UpdateDbTaskRepository } from '../../repositories/db/usecases/update-task'
 import { MissingParamError } from '../../utils/errors'
-import { NotFoundEntityError } from '../../utils/errors/not-found-entity-error'
 import {
   badRequest,
   notFound,
@@ -10,6 +9,10 @@ import {
 import { Controller, HttpRequest, HttpResponse } from '../../utils/protocols'
 
 export class UpdateTaskController implements Controller {
+  constructor(
+    private readonly updateDbTaskRepository: UpdateDbTaskRepository
+  ) {}
+
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
       const requiredFields = ['taskId']
@@ -18,6 +21,9 @@ export class UpdateTaskController implements Controller {
           return badRequest(new MissingParamError(field))
         }
       }
+      const { taskId } = httpRequest.params
+      const { message, status } = httpRequest.body
+      await this.updateDbTaskRepository.update(taskId, { message, status })
     } catch (error) {
       return serverError(error)
     }
