@@ -2,12 +2,7 @@ import { Task } from '@prisma/client'
 import { LoadDbTaskRepository } from '../usecases/load-task'
 import { UpdateTaskDbRepository } from './update-db-task'
 
-interface SutTypes {
-  sut: UpdateTaskDbRepository
-  loadTaskDbRepositoryStub: LoadDbTaskRepository
-}
-
-const makeSut = (): SutTypes => {
+const makeLoadTaskDbRepositoryStub = () => {
   class LoadTaskDbRepository implements LoadDbTaskRepository {
     async load(taskId: string): Promise<Task> {
       return Promise.resolve({
@@ -17,7 +12,16 @@ const makeSut = (): SutTypes => {
       })
     }
   }
-  const loadTaskDbRepositoryStub = new LoadTaskDbRepository()
+  return new LoadTaskDbRepository()
+}
+
+interface SutTypes {
+  sut: UpdateTaskDbRepository
+  loadTaskDbRepositoryStub: LoadDbTaskRepository
+}
+
+const makeSut = (): SutTypes => {
+  const loadTaskDbRepositoryStub = makeLoadTaskDbRepositoryStub()
   const sut = new UpdateTaskDbRepository(loadTaskDbRepositoryStub)
   return {
     sut,
