@@ -5,7 +5,7 @@
   "author": "Rodrigo Augusto <rodrigoaugusto96@outlook.com>",
   "license": "MIT",
   "scripts": {
-    "test": "jest --passWithNoTests --onlyChanged",
+    "test": "jest --passWithNoTests",
     "up": "docker compose up -d",
     "down": "docker compose down",
     "dev": "nodemon"
