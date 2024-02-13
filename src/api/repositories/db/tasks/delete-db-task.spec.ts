@@ -48,6 +48,15 @@ describe('DeleteDbTaskRepository', () => {
     await taskCollection.deleteMany({})
   })
 
+  test('should return null if LoadDbTaskRepository do not find a task', async () => {
+    const { sut, loadTaskDbRepositoryStub } = makeSut()
+    jest
+      .spyOn(loadTaskDbRepositoryStub, 'load')
+      .mockReturnValueOnce(Promise.resolve(null))
+    const task = await sut.delete('any_valid_id')
+    expect(task).toBeNull()
+  })
+
   test('should calls LoadDbTaskRepository with correct value', async () => {
     const { sut, loadTaskDbRepositoryStub } = makeSut()
     const loadSpy = jest.spyOn(loadTaskDbRepositoryStub, 'load')
