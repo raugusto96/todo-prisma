@@ -2,7 +2,7 @@ import { Task } from '@prisma/client'
 import { LoadDbTaskRepository } from '../usecases/load-task'
 import { MongoHelper } from '../../../utils/helpers/mongo-helper'
 import env from '../../../config/env'
-import { Collection } from 'mongodb'
+import { Collection, ObjectId } from 'mongodb'
 import { DeleteTaskDbRepository } from './delete-db-task'
 
 const makeLoadTaskDbRepositoryStub = () => {
@@ -51,7 +51,30 @@ describe('DeleteDbTaskRepository', () => {
   test('should calls LoadDbTaskRepository with correct value', async () => {
     const { sut, loadTaskDbRepositoryStub } = makeSut()
     const loadSpy = jest.spyOn(loadTaskDbRepositoryStub, 'load')
-    await sut.delete('any_valid_id')
-    expect(loadSpy).toHaveBeenCalledWith('any_valid_id')
+    const task = await taskCollection.insertOne({
+      message: 'any_message',
+      status: 'any_status'
+    })
+    await sut.delete(task.insertedId.toString())
+    expect(loadSpy).toHaveBeenCalledWith(task.insertedId.toString())
+  })
+
+  test('should delete a task on success', async () => {
+    const { sut } = makeSut()
+    const tasks = await taskCollection.insertMany([
+      {
+        message: 'any_message',
+        status: 'any_status'
+      },
+      {
+        message: 'any_message',
+        status: 'any_status'
+      }
+    ])
+    // const objectId = new ObjectId(tasks.insertedIds[0])
+    // const deletedTask = await taskCollection.deleteOne({ _id: objectId })
+    await sut.delete(tasks.insertedIds[0].toString())
+    const updatedTasks = await taskCollection.find().toArray()
+    expect(updatedTasks).toHaveLength(1)
   })
 })
