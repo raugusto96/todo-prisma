@@ -1,8 +1,9 @@
 import { Task } from '@prisma/client'
 import { MissingParamError } from '../../utils/errors'
-import { badRequest } from '../../utils/helpers/http-helper'
+import { badRequest, notFound } from '../../utils/helpers/http-helper'
 import { LoadTaskController } from './load-task-controller'
 import { LoadDbTaskRepository } from '../../repositories/db/usecases/load-task'
+import { NotFoundEntityError } from '../../utils/errors/not-found-entity-error'
 
 const makeLoadTaskRepositoryStub = () => {
   class LoadTaskRepository implements LoadDbTaskRepository {
@@ -40,6 +41,21 @@ describe('LoadTaskController', () => {
     }
     const httpResponse = await sut.handle(httpRequest)
     expect(httpResponse).toEqual(badRequest(new MissingParamError('taskId')))
+  })
+
+  test('should return 404 if LoadTaskRepository not find an task', async () => {
+    const { sut, loadTaskRepository } = makeSut()
+    jest
+      .spyOn(loadTaskRepository, 'load')
+      .mockReturnValueOnce(Promise.resolve(null))
+    const httpRequest = {
+      body: {},
+      params: {
+        taskId: 'any_valid_id'
+      }
+    }
+    const httpResponse = await sut.handle(httpRequest)
+    expect(httpResponse).toEqual(notFound(new NotFoundEntityError('Task')))
   })
 
   test('should call LoadTaskRepository with correct values', async () => {
