@@ -1,3 +1,3 @@
 export interface DeleteDbTaskRepository {
-  delete: (taskId: string) => Promise<void>
+  delete: (taskId: string) => Promise<void | null>
 }
