@@ -1,7 +1,7 @@
 import { Prisma, Task } from '@prisma/client'
 import prisma from '../../../config/prismaClient'
-import { STATUS } from '../../../models/usecases'
 import { AddDbTaskRepository } from '../usecases/add-task'
+import { STATUS } from '../../../models/enums'
 
 export class AddTaskDbRepository implements AddDbTaskRepository {
   async add(taskData: Prisma.TaskCreateInput): Promise<Task> {

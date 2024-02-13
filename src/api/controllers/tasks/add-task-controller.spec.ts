@@ -1,10 +1,10 @@
 import { badRequest, ok } from '../../utils/helpers/http-helper'
-import { HttpRequest, HttpResponse } from '../../utils/protocols'
+import { HttpRequest } from '../../utils/protocols'
 import { AddTaskController } from './add-task-controller'
 import { CreateTaskDTO } from '../../models/dtos'
-import { STATUS, Task } from '../../models/usecases'
 import { MissingParamError } from '../../utils/errors/missing-param-error'
 import { AddDbTaskRepository } from '../../repositories/db/usecases/add-task'
+import { Task } from '@prisma/client'
 
 const makeAddDbTaskRepositoryStub = () => {
   class AddDbTaskRepository implements AddDbTaskRepository {
@@ -12,7 +12,7 @@ const makeAddDbTaskRepositoryStub = () => {
       return Promise.resolve({
         id: 'any_valid_id',
         message: 'any_valid_message',
-        status: STATUS.PENDING
+        status: 'any_valid_status'
       })
     }
   }
@@ -38,7 +38,7 @@ const makeFakeHttpRequest = (body: any): HttpRequest => ({ body })
 const makeFakeTask = (): Task => ({
   id: 'any_valid_id',
   message: 'any_valid_message',
-  status: STATUS.PENDING
+  status: 'any_valid_status'
 })
 
 describe('AddTaskController', () => {
