@@ -1,9 +1,9 @@
-import { TaskController } from '../../../../controllers/tasks/task-controller'
+import { AddTaskController } from '../../../../controllers/tasks/add-task-controller'
 import { Controller } from '../../../protocols'
 import { AddTaskDbRepository } from '../../../../repositories/db/tasks/add-db-task'
 
 export const makeTaskController = (): Controller => {
   const addDbTaskRepository = new AddTaskDbRepository()
-  const controller = new TaskController(addDbTaskRepository)
+  const controller = new AddTaskController(addDbTaskRepository)
   return controller
 }

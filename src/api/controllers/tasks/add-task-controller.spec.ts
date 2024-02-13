@@ -1,6 +1,6 @@
 import { badRequest, ok } from '../../utils/helpers/http-helper'
 import { HttpRequest, HttpResponse } from '../../utils/protocols'
-import { TaskController } from './task-controller'
+import { AddTaskController } from './add-task-controller'
 import { CreateTaskDTO } from '../../models/dtos'
 import { STATUS, Task } from '../../models/usecases'
 import { MissingParamError } from '../../utils/errors/missing-param-error'
@@ -20,13 +20,13 @@ const makeAddDbTaskRepositoryStub = () => {
 }
 
 interface SutTypes {
-  sut: TaskController
+  sut: AddTaskController
   addTaskServiceStub: AddDbTaskRepository
 }
 
 const makeSut = (): SutTypes => {
   const addTaskServiceStub = makeAddDbTaskRepositoryStub()
-  const sut = new TaskController(addTaskServiceStub)
+  const sut = new AddTaskController(addTaskServiceStub)
   return {
     sut,
     addTaskServiceStub

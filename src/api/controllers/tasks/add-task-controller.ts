@@ -3,7 +3,7 @@ import { badRequest, ok, serverError } from '../../utils/helpers/http-helper'
 import { MissingParamError } from '../../utils/errors/missing-param-error'
 import { AddDbTaskRepository } from '../../repositories/db/usecases/add-task'
 
-export class TaskController implements Controller {
+export class AddTaskController implements Controller {
   constructor(private readonly addDbTaskRepository: AddDbTaskRepository) {}
 
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
