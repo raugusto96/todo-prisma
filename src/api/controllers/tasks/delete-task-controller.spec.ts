@@ -2,8 +2,7 @@ import { MissingParamError } from '../../utils/errors'
 import {
   badRequest,
   noContent,
-  notFound,
-  ok
+  notFound
 } from '../../utils/helpers/http-helper'
 import { NotFoundEntityError } from '../../utils/errors/not-found-entity-error'
 import { HttpRequest } from '../../utils/protocols'
@@ -12,7 +11,7 @@ import { DeleteTaskController } from './delete-task-controller'
 
 const makeDeleteDbTaskRepositoryStub = () => {
   class DeleteTaskDbRepository implements DeleteDbTaskRepository {
-    async delete(taskId: string): Promise<void | null> {}
+    async delete(_taskId: string): Promise<void | null> {}
   }
   return new DeleteTaskDbRepository()
 }

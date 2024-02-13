@@ -1,12 +1,10 @@
 import { DeleteDbTaskRepository } from '../../repositories/db/usecases/delete-task'
-import { UpdateDbTaskRepository } from '../../repositories/db/usecases/update-task'
 import { MissingParamError } from '../../utils/errors'
 import { NotFoundEntityError } from '../../utils/errors/not-found-entity-error'
 import {
   badRequest,
   noContent,
   notFound,
-  ok,
   serverError
 } from '../../utils/helpers/http-helper'
 import { Controller, HttpRequest, HttpResponse } from '../../utils/protocols'

@@ -8,7 +8,7 @@ import { Task } from '@prisma/client'
 
 const makeAddDbTaskRepositoryStub = () => {
   class AddDbTaskRepository implements AddDbTaskRepository {
-    async add(task: CreateTaskDTO): Promise<Task> {
+    async add(_task: CreateTaskDTO): Promise<Task> {
       return Promise.resolve({
         id: 'any_valid_id',
         message: 'any_valid_message',

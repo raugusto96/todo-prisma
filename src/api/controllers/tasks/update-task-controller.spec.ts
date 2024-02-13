@@ -8,7 +8,7 @@ import { HttpRequest } from '../../utils/protocols'
 
 const makeUpdateDbTaskRepositoryStub = () => {
   class UpdateTaskDbRepository implements UpdateDbTaskRepository {
-    async update(taskId: string): Promise<Task | null> {
+    async update(_taskId: string): Promise<Task | null> {
       return Promise.resolve({
         id: 'any_valid_id',
         message: 'any_updated_message',

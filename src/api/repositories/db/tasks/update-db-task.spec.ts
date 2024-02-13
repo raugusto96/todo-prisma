@@ -8,7 +8,7 @@ import { Collection, ObjectId } from 'mongodb'
 
 const makeLoadTaskDbRepositoryStub = () => {
   class LoadTaskDbRepository implements LoadDbTaskRepository {
-    async load(taskId: string): Promise<Task | null> {
+    async load(_taskId: string): Promise<Task | null> {
       return Promise.resolve({
         id: 'any_valid_id',
         message: 'any_valid_message',

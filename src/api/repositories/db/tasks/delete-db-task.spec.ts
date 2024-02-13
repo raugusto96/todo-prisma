@@ -2,12 +2,12 @@ import { Task } from '@prisma/client'
 import { LoadDbTaskRepository } from '../usecases/load-task'
 import { MongoHelper } from '../../../utils/helpers/mongo-helper'
 import env from '../../../config/env'
-import { Collection, ObjectId } from 'mongodb'
+import { Collection } from 'mongodb'
 import { DeleteTaskDbRepository } from './delete-db-task'
 
 const makeLoadTaskDbRepositoryStub = () => {
   class LoadTaskDbRepository implements LoadDbTaskRepository {
-    async load(taskId: string): Promise<Task | null> {
+    async load(_taskId: string): Promise<Task | null> {
       return Promise.resolve({
         id: 'any_valid_id',
         message: 'any_valid_message',

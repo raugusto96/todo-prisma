@@ -7,7 +7,7 @@ import { NotFoundEntityError } from '../../utils/errors/not-found-entity-error'
 
 const makeLoadTaskRepositoryStub = () => {
   class LoadTaskRepository implements LoadDbTaskRepository {
-    async load(taskId: string): Promise<Task> {
+    async load(_taskId: string): Promise<Task> {
       return Promise.resolve({
         id: 'any_valid_id',
         message: 'any_valid_message',
