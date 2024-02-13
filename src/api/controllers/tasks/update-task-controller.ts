@@ -1,5 +1,6 @@
 import { UpdateDbTaskRepository } from '../../repositories/db/usecases/update-task'
 import { MissingParamError } from '../../utils/errors'
+import { NotFoundEntityError } from '../../utils/errors/not-found-entity-error'
 import {
   badRequest,
   notFound,
@@ -23,7 +24,11 @@ export class UpdateTaskController implements Controller {
       }
       const { taskId } = httpRequest.params
       const { message, status } = httpRequest.body
-      await this.updateDbTaskRepository.update(taskId, { message, status })
+      const task = await this.updateDbTaskRepository.update(taskId, {
+        message,
+        status
+      })
+      if (!task) return notFound(new NotFoundEntityError('Task'))
     } catch (error) {
       return serverError(error)
     }
