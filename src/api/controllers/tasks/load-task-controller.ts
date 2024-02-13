@@ -4,6 +4,7 @@ import { NotFoundEntityError } from '../../utils/errors/not-found-entity-error'
 import {
   badRequest,
   notFound,
+  ok,
   serverError
 } from '../../utils/helpers/http-helper'
 import { Controller, HttpRequest, HttpResponse } from '../../utils/protocols'
@@ -24,10 +25,7 @@ export class LoadTaskController implements Controller {
       if (!task) {
         return notFound(new NotFoundEntityError('Task'))
       }
-      return {
-        statusCode: 200,
-        body: ''
-      }
+      return ok(task)
     } catch (error) {
       return serverError(error)
     }
