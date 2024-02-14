@@ -21,8 +21,6 @@ services:
       dockerfile: Dockerfile
     ports:
       - "5050:5050"
-    volumes:
-      - ./data/api:/data/api
     restart: always
     depends_on:
       - mongo
@@ -32,8 +30,6 @@ services:
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
-    volumes:
-      - ./data/app:/data/app
     restart: always
     depends_on:
       - backend

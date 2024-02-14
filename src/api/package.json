@@ -6,7 +6,9 @@
   "license": "MIT",
   "scripts": {
     "test": "jest --passWithNoTests",
-    "dev": "nodemon"
+    "build": "tsc",
+    "dev": "nodemon",
+    "start": "node index.js"
   },
   "devDependencies": {
     "@types/express": "^4.17.21",

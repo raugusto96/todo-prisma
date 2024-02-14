@@ -19,4 +19,4 @@ COPY . .
 EXPOSE 5050
 
 # Comando para iniciar o servidor backend
-CMD ["npm", "start"]
+CMD ["npm", "run", "dev"]
