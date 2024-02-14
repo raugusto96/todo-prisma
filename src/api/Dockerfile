@@ -15,8 +15,11 @@ RUN npm install
 # Copie todo o código-fonte para o contêiner
 COPY . .
 
+# Construa o aplicativo back-end
+RUN npm run build
+
 # Exponha a porta em que o servidor backend está sendo executado
 EXPOSE 5050
 
 # Comando para iniciar o servidor backend
-CMD ["npm", "run", "dev"]
+CMD ["npm", "start"]
