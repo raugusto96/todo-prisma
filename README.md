@@ -201,21 +201,21 @@ DELETE /api/task/{taskId}
 
 - Adicionar middleware de autenticação
 
-[] - Finalizado
+- [ ] - Finalizado
 
 - Adicionar filtragens no endpoint
 ```http
 GET /api/task
 ```
 
-[] - Finalizado
+- [ ] - Finalizado
 
 
 ### Frontend
 
 - Iniciar o app (WIP)
 
-[] - Finalizado
+- [ ] - Finalizado
 
 
 
