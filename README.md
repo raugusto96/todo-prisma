@@ -210,6 +210,8 @@ GET /api/task
 
 - [ ] - Finalizado
 
+- Implementar documentação com [Swagger](https://swagger.io/)
+
 
 ### Frontend
 
