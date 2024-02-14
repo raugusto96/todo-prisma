@@ -61,7 +61,7 @@ npm run dev
 
 Acesse via
 
-```http
+```
 localhost:5050
 ```
 
@@ -93,7 +93,7 @@ npm run dev
 
 Acesse via
 
-```http
+```
 localhost:3000
 ```
 
