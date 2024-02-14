@@ -38,31 +38,31 @@
 Clone o projeto
 
 ```bash
-  git clone git@github.com:raugusto96/todo-prisma.git
+git clone git@github.com:raugusto96/todo-prisma.git
 ```
 
 Entre na pasta `/api`
 
 ```bash
-  cd api
+cd api
 ```
 
 Instale as dependencias
 
 ```bash
-  npm install
+npm install
 ```
 
 Inicie a aplicação
 
 ```bash
-  npm run dev
+npm run dev
 ```
 
 Acesse via
 
 ```http
-  localhost:5050
+localhost:5050
 ```
 
 ### Frontend
@@ -70,31 +70,31 @@ Acesse via
 Clone o projeto
 
 ```bash
-  git clone git@github.com:raugusto96/todo-prisma.git
+git clone git@github.com:raugusto96/todo-prisma.git
 ```
 
 Entre na pasta `/app`
 
 ```bash
-  cd app
+cd app
 ```
 
 Instale as dependencias
 
 ```bash
-  npm install
+npm install
 ```
 
 Inicie a aplicação
 
 ```bash
-  npm run dev
+npm run dev
 ```
 
 Acesse via
 
 ```http
-  localhost:3000
+localhost:3000
 ```
 
 
@@ -122,7 +122,7 @@ Para rodar esse projeto, você vai precisar adicionar as seguintes variáveis de
 Para rodar os testes, rode o seguinte comando
 
 ```bash
-  npm run jest
+npm run jest
 ```
 
 
@@ -131,7 +131,7 @@ Para rodar os testes, rode o seguinte comando
 #### Retorna todos os itens
 
 ```http
-  GET /api/task
+GET /api/task
 ```
 #### Parametros via query
 
@@ -143,7 +143,7 @@ Para rodar os testes, rode o seguinte comando
 #### Retorna um item
 
 ```http
-  GET /api/task/${taskId}
+GET /api/task/${taskId}
 ```
 
 #### Parametros via url
@@ -155,7 +155,7 @@ Para rodar os testes, rode o seguinte comando
 #### Adiciona uma tarefa
 
 ```http
-  POST /api/task
+POST /api/task
 ```
 
 #### Parametros via body
@@ -167,7 +167,7 @@ Para rodar os testes, rode o seguinte comando
 #### Adiciona uma tarefa
 
 ```http
-  PUT /api/task/{taskId}
+PUT /api/task/{taskId}
 ```
 
 #### Parametros via url
@@ -186,7 +186,7 @@ Para rodar os testes, rode o seguinte comando
 #### Adiciona uma tarefa
 
 ```http
-  DELETE /api/task/{taskId}
+DELETE /api/task/{taskId}
 ```
 
 #### Parametros via url
