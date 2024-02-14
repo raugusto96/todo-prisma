@@ -1,12 +1,10 @@
 {
   "compilerOptions": {
+    "outDir": "dist",
     "module": "commonjs",
+    "target": "es2019",
     "esModuleInterop": true,
-    "target": "es6",
-    "moduleResolution": "node",
-    "jsx": "react",
     "sourceMap": true,
-    "rootDir": "./",
-    "outDir": "./dist"
-  },
+    "rootDirs": ["api"],
+  }
 }
