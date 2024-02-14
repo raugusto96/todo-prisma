@@ -33,7 +33,7 @@
 
 ### Backend 
 
-**Observação**: Para que o **frontend** funcione corretamente, o **backend** precisa ser inicializado.
+> **Observação**: Para que o **frontend** funcione corretamente, o **backend** precisa ser inicializado.
 
 Clone o projeto
 
@@ -104,7 +104,7 @@ localhost:3000
 
 Para rodar esse projeto, você vai precisar adicionar as seguintes variáveis de ambiente no seu .env
 
-**Obs**: O docker-compose já inicia uma container com mongo, exemplo de link: `mongodb://HOST:PORT/db?authSource=ROOTUSERNAME&directConnection=true`
+> **Observação**: O docker-compose já inicia uma container com mongo, exemplo de link: `mongodb://HOST:PORT/db?authSource=ROOTUSERNAME&directConnection=true`
 
 `DATABASE_URL` 
 
