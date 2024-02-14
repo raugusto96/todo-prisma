@@ -2,7 +2,7 @@ version: "3.8"
 services:
   mongo:
     build:
-      context: ./src/docker/mongodb_rs
+      context: ./docker/mongodb_rs
       args:
         MONGO_VERSION: 6
     environment:
@@ -17,7 +17,7 @@ services:
     restart: always
   backend:
     build:
-      context: ./src/api
+      context: ./api
       dockerfile: Dockerfile
     ports:
       - "5050:5050"
@@ -26,7 +26,7 @@ services:
       - mongo
   frontend:
     build:
-      context: ./src/app
+      context: ./app
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
