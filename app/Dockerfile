@@ -1,8 +1,8 @@
 FROM node:20
-WORKDIR /app
-COPY package*.json ./
+WORKDIR /usr/src/todo-prisma/app
+COPY ./package.json .
+COPY ./vite.config.ts .
 RUN npm install
-COPY . .
-RUN npm run build
+COPY ./ ./
 EXPOSE 3000
-CMD ["npm", "start"]
+CMD npm run dev
