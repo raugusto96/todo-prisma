@@ -1,8 +1,8 @@
-import env from './config/env'
-import prisma from './config/prismaClient'
+import env from './src/config/env'
+import prisma from './src/config/prismaClient'
 
 async function main() {
-  const app = (await import('./config/app')).default
+  const app = (await import('./src/config/app')).default
   app.listen(env.port, () => {
     console.log(`Server running at http://localhost:${env.port}`)
   })
