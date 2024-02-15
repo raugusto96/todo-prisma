@@ -122,7 +122,7 @@ Para rodar esse projeto, você vai precisar adicionar as seguintes variáveis de
 Para rodar os testes, rode o seguinte comando
 
 ```bash
-npm run jest
+npm test
 ```
 
 
