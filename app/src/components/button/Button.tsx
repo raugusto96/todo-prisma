@@ -2,9 +2,10 @@ import React from "react";
 import { ButtonProps } from "./protocols/button";
 
 export const Button: React.FC<ButtonProps> = ({
-  displayValue
+  displayValue,
+  clickHandler,
 }) => {
   return (
-    <button>{displayValue}</button>
+    <button onClick={clickHandler}>{displayValue}</button>
   )
 }
