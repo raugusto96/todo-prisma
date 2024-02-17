@@ -1,4 +1,4 @@
-import { render, screen } from "../../utils/test/test-utils"
+import { fireEvent, render, screen } from "../../utils/test/test-utils"
 import { Button } from "./Button"
 import { ButtonProps } from "./protocols/button"
 
@@ -27,5 +27,15 @@ describe('Button Component', () => {
     const button = screen.getByText('any_value')
 
     expect(button).toBeInTheDocument()
+  })
+
+  test('should button is clickable', () => {
+    const sut = makeSut()
+    render(sut)
+    const button = screen.getByRole('button')
+
+    const isClicked = fireEvent.click(button)
+    
+    expect(isClicked).toBeTruthy()
   })
 })
