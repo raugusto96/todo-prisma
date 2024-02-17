@@ -1,7 +1,10 @@
 import React from "react";
+import { ButtonProps } from "./protocols/button";
 
-export const Button: React.FC = () => {
+export const Button: React.FC<ButtonProps> = ({
+  displayValue
+}) => {
   return (
-    <button>Text</button>
+    <button>{displayValue}</button>
   )
 }
