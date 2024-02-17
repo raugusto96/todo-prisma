@@ -1,10 +1,16 @@
-import { render } from "../../utils/test/test-utils"
+import { render, screen } from "../../utils/test/test-utils"
 import { Button } from "./Button"
 
 describe('Button Component', () => {
   test('should render the component', () => {
-    const { container } = render(<Button />)
+    render(<Button />)
 
-    expect(container).toBeInTheDocument()
+    expect(screen.getByText('test')).toBeInTheDocument()
   })
+
+  // test('should render returns a button element', () => {
+  //   const { container } = render(<Button />)
+
+  //   expect(container).toBe
+  // })
 })
