@@ -20,7 +20,8 @@ describe('Button Component', () => {
   test('should render returns a button element with correct display value is provided', () => {
     const sut = makeSut({
       displayValue: 'any_value',
-      clickHandler: () => []
+      clickHandler: () => [],
+      name: 'any_name',
     })
     render(sut)
     const button = screen.getByText('any_value')
@@ -31,7 +32,8 @@ describe('Button Component', () => {
   test('should button is clickable', () => {
     const sut = makeSut({
       displayValue: 'any_value',
-      clickHandler: () => []
+      clickHandler: () => [],
+      name: 'any_name',
     })
     render(sut)
     const button = screen.getByRole('button')
@@ -45,7 +47,8 @@ describe('Button Component', () => {
     const someFunction = vi.fn()
     const sut = makeSut({
       displayValue: 'any_value',
-      clickHandler: someFunction
+      clickHandler: someFunction,
+      name: 'any_name',
     })
     render(sut)
     const button = screen.getByRole('button')
@@ -53,5 +56,18 @@ describe('Button Component', () => {
     fireEvent.click(button)
     
     expect(someFunction).toHaveBeenCalled()
+  })
+
+  test('should button has name attribute provided', () => {
+    const sut = makeSut({
+      displayValue: 'any_value',
+      clickHandler: () => [],
+      name: 'any_name',
+    })
+    render(sut)
+    const button = screen.getByRole('button')
+
+
+    expect(button).toHaveAttribute('name', 'any_name')
   })
 })
