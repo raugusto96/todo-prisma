@@ -1,5 +1,6 @@
 import { RemoteTask } from "./remote-task";
 import { HttpPostClientSpy } from "../../test/mock-http-client";
+import faker from "faker";
 
 const makeHttpPostClientSpy = () => new HttpPostClientSpy();
 
