@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from "../../utils/test/test-utils"
+import { fireEvent, render, screen } from "@/utils/test/test-utils"
 import { Button } from "./Button"
 import { ButtonProps } from "./protocols/button"
 
