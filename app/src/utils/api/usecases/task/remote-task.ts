@@ -6,7 +6,7 @@ export class RemoteTask {
     private readonly httpPostClient: HttpPostClient
   ) {}
 
-  async task(): Promise<void> {
-    this.httpPostClient.post(this.url);
+  async task(message: string): Promise<void> {
+    this.httpPostClient.post(this.url, { message });
   }
 }
