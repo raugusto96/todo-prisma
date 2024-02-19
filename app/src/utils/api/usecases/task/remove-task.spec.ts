@@ -1,5 +1,5 @@
 import { RemoteTask } from "./remote-task";
-import { HttpPostClientSpy } from "./test/mock-http-client";
+import { HttpPostClientSpy } from "../../test/mock-http-client";
 
 const makeHttpPostClientSpy = () => new HttpPostClientSpy();
 
