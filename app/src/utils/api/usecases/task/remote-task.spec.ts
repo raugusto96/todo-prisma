@@ -1,7 +1,9 @@
-import { RemoteTask } from "./remote-task";
-import { HttpPostClientSpy } from "../../test/mock-http-client";
 import { faker } from "@faker-js/faker";
-import { mockTask } from "../../test/mock/mock-remote-task";
+import { RemoteTask } from "./remote-task";
+import { HttpPostClientSpy } from "@/utils/api/test/mock-http-client";
+import { mockTask } from "@/utils/api/test/mock/mock-remote-task";
+import { MissingParamError } from "@/utils/api/errors/missing-param-error";
+import { HttpStatusCode } from "@/utils/api/protocols/http";
 
 const makeHttpPostClientSpy = () => new HttpPostClientSpy();
 
@@ -32,5 +34,14 @@ describe("RemoteTask", () => {
     const { sut, httpPostClientSpy } = makeSut();
     await sut.task(taskParams);
     expect(httpPostClientSpy.body).toEqual(taskParams);
+  });
+
+  test("should throw MissingParamError if HttpPostClient returns 400", async () => {
+    const { sut, httpPostClientSpy } = makeSut();
+    httpPostClientSpy.response = {
+      statusCode: HttpStatusCode.badRequest,
+    };
+    const promise = sut.task(mockTask());
+    expect(promise).rejects.toThrow(new MissingParamError());
   });
 });
