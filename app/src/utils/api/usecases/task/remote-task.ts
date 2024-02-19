@@ -1,4 +1,5 @@
 import { HttpPostClient } from "../../protocols/http";
+import { TaskParams } from "../protocols/task";
 
 export class RemoteTask {
   constructor(
@@ -6,7 +7,10 @@ export class RemoteTask {
     private readonly httpPostClient: HttpPostClient
   ) {}
 
-  async task(message: string): Promise<void> {
-    this.httpPostClient.post(this.url, { message });
+  async task(params: TaskParams): Promise<void> {
+    this.httpPostClient.post({
+      url: this.url,
+      body: params,
+    });
   }
 }

@@ -1,6 +1,7 @@
 import { RemoteTask } from "./remote-task";
 import { HttpPostClientSpy } from "../../test/mock-http-client";
 import { faker } from "@faker-js/faker";
+import { mockTask } from "../../test/mock/mock-remote-task";
 
 const makeHttpPostClientSpy = () => new HttpPostClientSpy();
 
@@ -22,17 +23,14 @@ describe("RemoteTask", () => {
   test("should call HttpPostClient with the correct url", async () => {
     const url = faker.internet.url();
     const { sut, httpPostClientSpy } = makeSut(url);
-    await sut.task(faker.commerce.productName());
+    await sut.task(mockTask());
     expect(httpPostClientSpy.url).toBe(url);
   });
 
-  test("should call HttpPostClient with the correct data", async () => {
-    const message = faker.commerce.productName();
-    const data = {
-      message,
-    };
+  test("should call HttpPostClient with the correct body", async () => {
+    const taskParams = mockTask();
     const { sut, httpPostClientSpy } = makeSut();
-    await sut.task(message);
-    expect(httpPostClientSpy.data).toEqual(data);
+    await sut.task(taskParams);
+    expect(httpPostClientSpy.body).toEqual(taskParams);
   });
 });
