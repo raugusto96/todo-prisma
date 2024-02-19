@@ -1,5 +1,5 @@
-import { HttpPostClient } from "../../protocols/http";
-import { TaskParams } from "../protocols/task";
+import { HttpPostClient } from "@/utils/api/protocols/http";
+import { TaskParams } from "@/utils/api/usecases/protocols/task";
 
 export class RemoteTask {
   constructor(

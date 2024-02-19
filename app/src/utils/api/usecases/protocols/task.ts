@@ -1,4 +1,4 @@
-import { TaskModel } from "../models/task";
+import { TaskModel } from "@/utils/api/usecases/models/task";
 
 export type TaskParams = {
   message: string;

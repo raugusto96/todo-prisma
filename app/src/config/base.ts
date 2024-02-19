@@ -1,4 +1,4 @@
-import { env } from "./env";
+import { env } from "@/config";
 
 export const base = {
   api: {

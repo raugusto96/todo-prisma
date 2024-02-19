@@ -7,6 +7,10 @@
     "skipLibCheck": true,
     "outDir": "./dist",
     "types": ["vitest/globals"],
+    "baseUrl": "src",
+    "paths": {
+      "@/*": ["*"]
+    },
 
     /* Bundler mode */
     "moduleResolution": "bundler",
