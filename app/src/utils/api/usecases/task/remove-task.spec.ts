@@ -1,6 +1,6 @@
 import { RemoteTask } from "./remote-task";
 import { HttpPostClientSpy } from "../../test/mock-http-client";
-import faker from "faker";
+import { faker } from "@faker-js/faker";
 
 const makeHttpPostClientSpy = () => new HttpPostClientSpy();
 
@@ -9,7 +9,7 @@ interface SutTypes {
   httpPostClientSpy: HttpPostClientSpy;
 }
 
-const makeSut = (url: string = "any_url"): SutTypes => {
+const makeSut = (url: string = faker.internet.url()): SutTypes => {
   const httpPostClientSpy = makeHttpPostClientSpy();
   const sut = new RemoteTask(url, httpPostClientSpy);
   return {
@@ -20,7 +20,7 @@ const makeSut = (url: string = "any_url"): SutTypes => {
 
 describe("Http Client", () => {
   test("should call HttpPostClient with the correct url", async () => {
-    const url = "other_url";
+    const url = faker.internet.url();
     const { sut, httpPostClientSpy } = makeSut(url);
     await sut.task();
     expect(httpPostClientSpy.url).toBe(url);
