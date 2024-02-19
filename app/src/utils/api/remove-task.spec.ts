@@ -1,19 +1,26 @@
-import { HttpPostClient } from "./protocols/http/http-post-client";
 import { RemoteTask } from "./remote-task";
+import { HttpPostClientSpy } from "./test/mock-http-client";
+
+const makeHttpPostClientSpy = () => new HttpPostClientSpy();
+
+interface SutTypes {
+  sut: RemoteTask;
+  httpPostClientSpy: HttpPostClientSpy;
+}
+
+const makeSut = (url: string): SutTypes => {
+  const httpPostClientSpy = makeHttpPostClientSpy();
+  const sut = new RemoteTask(url, httpPostClientSpy);
+  return {
+    sut,
+    httpPostClientSpy,
+  };
+};
 
 describe("Http Client", () => {
   test("should call HttpPostClient with the correct url", async () => {
-    class HttpPostClientSpy implements HttpPostClient {
-      url?: string;
-
-      async post(url: string): Promise<void> {
-        this.url = url;
-        return Promise.resolve();
-      }
-    }
     const url = "any_url";
-    const httpPostClientSpy = new HttpPostClientSpy();
-    const sut = new RemoteTask(url, httpPostClientSpy);
+    const { sut, httpPostClientSpy } = makeSut(url);
     await sut.task();
     expect(httpPostClientSpy.url).toBe(url);
   });
