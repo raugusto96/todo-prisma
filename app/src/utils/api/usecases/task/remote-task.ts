@@ -1,6 +1,9 @@
 import { HttpPostClient, HttpStatusCode } from "@/utils/api/protocols/http";
 import { TaskParams } from "@/utils/api/usecases/protocols/task";
-import { MissingParamError } from "@/utils/api/errors/missing-param-error";
+import {
+  MissingParamError,
+  UnexpectedError,
+} from "@/utils/api/errors/unexpected-error";
 
 export class RemoteTask {
   constructor(
@@ -14,8 +17,10 @@ export class RemoteTask {
       body: params,
     });
     switch (httpResponse.statusCode) {
-      case HttpStatusCode.badRequest:
-        throw new MissingParamError();
+      case HttpStatusCode.ok:
+        break;
+      default:
+        throw new UnexpectedError();
     }
   }
 }
