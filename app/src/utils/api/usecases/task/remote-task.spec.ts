@@ -2,7 +2,7 @@ import { faker } from "@faker-js/faker";
 import { RemoteTask } from "./remote-task";
 import { HttpPostClientSpy } from "@/utils/api/test/mock-http-client";
 import { mockTask } from "@/utils/api/test/mock/mock-remote-task";
-import { MissingParamError } from "@/utils/api/errors/missing-param-error";
+import { UnexpectedError } from "@/utils/api/errors/unexpected-error";
 import { HttpStatusCode } from "@/utils/api/protocols/http";
 
 const makeHttpPostClientSpy = () => new HttpPostClientSpy();
@@ -36,12 +36,21 @@ describe("RemoteTask", () => {
     expect(httpPostClientSpy.body).toEqual(taskParams);
   });
 
-  test("should throw MissingParamError if HttpPostClient returns 400", async () => {
+  test("should throw UnexpectedError if HttpPostClient returns 400", async () => {
     const { sut, httpPostClientSpy } = makeSut();
     httpPostClientSpy.response = {
       statusCode: HttpStatusCode.badRequest,
     };
     const promise = sut.task(mockTask());
-    expect(promise).rejects.toThrow(new MissingParamError());
+    expect(promise).rejects.toThrow(new UnexpectedError());
+  });
+
+  test("should throw UnexpectedError if HttpPostClient returns 404", async () => {
+    const { sut, httpPostClientSpy } = makeSut();
+    httpPostClientSpy.response = {
+      statusCode: HttpStatusCode.notFound,
+    };
+    const promise = sut.task(mockTask());
+    expect(promise).rejects.toThrow(new UnexpectedError());
   });
 });
