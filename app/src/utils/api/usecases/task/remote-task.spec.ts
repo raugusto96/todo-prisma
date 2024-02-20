@@ -4,12 +4,15 @@ import { HttpPostClientSpy } from "@/utils/api/test/mock-http-client";
 import { mockTask } from "@/utils/api/test/mock/mock-remote-task";
 import { UnexpectedError } from "@/utils/api/errors/unexpected-error";
 import { HttpStatusCode } from "@/utils/api/protocols/http";
+import { TaskParams } from "../protocols/task";
+import { TaskModel } from "../models/task";
 
-const makeHttpPostClientSpy = () => new HttpPostClientSpy();
+const makeHttpPostClientSpy = () =>
+  new HttpPostClientSpy<TaskParams, TaskModel>();
 
 interface SutTypes {
   sut: RemoteTask;
-  httpPostClientSpy: HttpPostClientSpy;
+  httpPostClientSpy: HttpPostClientSpy<TaskParams, TaskModel>;
 }
 
 const makeSut = (url: string = faker.internet.url()): SutTypes => {
