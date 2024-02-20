@@ -1,7 +1,7 @@
 import { HttpPostClient, HttpStatusCode } from "@/utils/api/protocols/http";
-import { Task, TaskParams } from "@/utils/api/usecases/protocols/task";
-import { UnexpectedError } from "@/utils/api/errors/unexpected-error";
-import { TaskModel } from "../models/task";
+import { Task, TaskParams } from "@/utils/api/usecases/protocols";
+import { UnexpectedError } from "@/utils/api/errors";
+import { TaskModel } from "../models";
 
 export class RemoteTask implements Task {
   constructor(

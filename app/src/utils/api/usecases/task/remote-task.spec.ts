@@ -1,11 +1,11 @@
 import { faker } from "@faker-js/faker";
 import { RemoteTask } from "./remote-task";
-import { HttpPostClientSpy } from "@/utils/api/test/mock-http-client";
+import { HttpPostClientSpy } from "@/utils/api/test";
 import { mockTask, mockTaskModel } from "@/utils/api/test/mock/mock-task";
-import { UnexpectedError } from "@/utils/api/errors/unexpected-error";
+import { UnexpectedError } from "@/utils/api/errors";
 import { HttpStatusCode } from "@/utils/api/protocols/http";
-import { TaskParams } from "../protocols/task";
-import { TaskModel } from "../models/task";
+import { TaskParams } from "../protocols";
+import { TaskModel } from "../models";
 
 const makeHttpPostClientSpy = () =>
   new HttpPostClientSpy<TaskParams, TaskModel>();
