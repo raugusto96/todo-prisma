@@ -1,7 +1,7 @@
 import { faker } from "@faker-js/faker";
 import { RemoteTask } from "./remote-task";
-import { HttpPostClientSpy } from "@/utils/api/test";
-import { mockTask, mockTaskModel } from "@/utils/api/test/mock/mock-task";
+import { HttpPostClientSpy } from "@/utils/api/test/mock";
+import { mockTask, mockTaskModel } from "@/utils/api/test/mock/task";
 import { UnexpectedError } from "@/utils/api/errors";
 import { HttpStatusCode } from "@/utils/api/protocols/http";
 import { TaskParams } from "../protocols";
