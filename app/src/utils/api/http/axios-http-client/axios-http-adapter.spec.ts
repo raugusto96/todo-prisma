@@ -1,7 +1,7 @@
 import { AxiosHttpAdapter } from "./axios-http-adapter";
+import { HttpPostParams } from "@/utils/api/protocols/http";
 import axios from "axios";
 import { faker } from "@faker-js/faker";
-import { HttpPostParams } from "../../protocols/http";
 
 vi.mock("axios");
 

@@ -2,7 +2,7 @@ import {
   HttpPostClient,
   HttpPostParams,
   HttpResponse,
-} from "../../protocols/http";
+} from "@/utils/api/protocols/http";
 import axios from "axios";
 
 export class AxiosHttpAdapter implements HttpPostClient<any, any> {
