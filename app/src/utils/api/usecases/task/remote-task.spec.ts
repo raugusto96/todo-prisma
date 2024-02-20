@@ -1,7 +1,7 @@
 import { faker } from "@faker-js/faker";
 import { RemoteTask } from "./remote-task";
 import { HttpPostClientSpy } from "@/utils/api/test/mock-http-client";
-import { mockTask } from "@/utils/api/test/mock/mock-remote-task";
+import { mockTask, mockTaskModel } from "@/utils/api/test/mock/mock-task";
 import { UnexpectedError } from "@/utils/api/errors/unexpected-error";
 import { HttpStatusCode } from "@/utils/api/protocols/http";
 import { TaskParams } from "../protocols/task";
@@ -64,5 +64,16 @@ describe("RemoteTask", () => {
     };
     const promise = sut.task(mockTask());
     expect(promise).rejects.toThrow(new UnexpectedError());
+  });
+
+  test("should return a TaskModel if HttpPostClient returns 200", async () => {
+    const { sut, httpPostClientSpy } = makeSut();
+    const httpResult = mockTaskModel();
+    httpPostClientSpy.response = {
+      statusCode: HttpStatusCode.ok,
+      body: httpResult,
+    };
+    const task = await sut.task(mockTask());
+    expect(task).toEqual(httpResult);
   });
 });
