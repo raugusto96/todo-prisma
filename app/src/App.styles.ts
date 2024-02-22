@@ -5,6 +5,12 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100%;
-  width: 100%;
+  background-color: #242424;
+  font-family: "Roboto", sans-serif;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 `;

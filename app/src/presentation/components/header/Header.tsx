@@ -1,10 +1,14 @@
 import React from "react";
-import { HeaderWrapper } from "./Header.styles";
+import { HeaderWrapper, Title } from "./Header.styles";
+import { FaTasks } from "react-icons/fa";
 
 const Header: React.FC = () => {
   return (
     <HeaderWrapper>
-      <h1>ToDo Prisma</h1>
+      <Title>
+        <FaTasks />
+        ToDo Prisma
+      </Title>
     </HeaderWrapper>
   );
 };
