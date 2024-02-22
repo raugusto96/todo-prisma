@@ -1,6 +1,6 @@
 import React from "react";
 import { ButtonProps } from "./protocols/button";
-import { ButtonWrapper } from './Button.styles';
+import { ButtonWrapper } from "./Button.styles";
 
 export const Button: React.FC<ButtonProps> = ({
   displayValue,
@@ -9,12 +9,8 @@ export const Button: React.FC<ButtonProps> = ({
   styles,
 }) => {
   return (
-    <ButtonWrapper
-      style={styles}
-      onClick={clickHandler}
-      name={name}
-    >
+    <ButtonWrapper style={styles} onClick={clickHandler} name={name}>
       {displayValue}
     </ButtonWrapper>
-  )
-}
+  );
+};

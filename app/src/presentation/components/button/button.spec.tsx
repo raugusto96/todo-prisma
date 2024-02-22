@@ -1,73 +1,70 @@
-import { fireEvent, render, screen } from "@/utils/test/test-utils"
-import { Button } from "./Button"
-import { ButtonProps } from "./protocols/button"
+import { fireEvent, render, screen } from "@/utils/test/test-utils";
+import { Button } from "./Button";
+import { ButtonProps } from "./protocols/button";
 
-const makeSut = (props: ButtonProps) => {  
-  return (
-    <Button {...props} />
-  )
-}
+const makeSut = (props: ButtonProps) => {
+  return <Button {...props} />;
+};
 
-describe('Button Component', () => {
-  test('should render the component', () => {
-    const sut = makeSut({} as ButtonProps)
-    render(sut)
-    const button = screen.getByRole('button')
+describe("Button Component", () => {
+  test("should render the component", () => {
+    const sut = makeSut({} as ButtonProps);
+    render(sut);
+    const button = screen.getByRole("button");
 
-    expect(button).toBeInTheDocument()
-  })
+    expect(button).toBeInTheDocument();
+  });
 
-  test('should render returns a button element with correct display value is provided', () => {
+  test("should render returns a button element with correct display value is provided", () => {
     const sut = makeSut({
-      displayValue: 'any_value',
+      displayValue: "any_value",
       clickHandler: () => [],
-      name: 'any_name',
-    })
-    render(sut)
-    const button = screen.getByText('any_value')
+      name: "any_name",
+    });
+    render(sut);
+    const button = screen.getByText("any_value");
 
-    expect(button).toBeInTheDocument()
-  })
+    expect(button).toBeInTheDocument();
+  });
 
-  test('should button is clickable', () => {
+  test("should button is clickable", () => {
     const sut = makeSut({
-      displayValue: 'any_value',
+      displayValue: "any_value",
       clickHandler: () => [],
-      name: 'any_name',
-    })
-    render(sut)
-    const button = screen.getByRole('button')
+      name: "any_name",
+    });
+    render(sut);
+    const button = screen.getByRole("button");
 
-    const isClicked = fireEvent.click(button)
-    
-    expect(isClicked).toBeTruthy()
-  })
+    const isClicked = fireEvent.click(button);
 
-  test('should button click handler calls correct function', () => {
-    const someFunction = vi.fn()
+    expect(isClicked).toBeTruthy();
+  });
+
+  test("should button click handler calls correct function", () => {
+    const someFunction = vi.fn();
     const sut = makeSut({
-      displayValue: 'any_value',
+      displayValue: "any_value",
       clickHandler: someFunction,
-      name: 'any_name',
-    })
-    render(sut)
-    const button = screen.getByRole('button')
+      name: "any_name",
+    });
+    render(sut);
+    const button = screen.getByRole("button");
 
-    fireEvent.click(button)
-    
-    expect(someFunction).toHaveBeenCalled()
-  })
+    fireEvent.click(button);
 
-  test('should button has name attribute provided', () => {
+    expect(someFunction).toHaveBeenCalled();
+  });
+
+  test("should button has name attribute provided", () => {
     const sut = makeSut({
-      displayValue: 'any_value',
+      displayValue: "any_value",
       clickHandler: () => [],
-      name: 'any_name',
-    })
-    render(sut)
-    const button = screen.getByRole('button')
+      name: "any_name",
+    });
+    render(sut);
+    const button = screen.getByRole("button");
 
-
-    expect(button).toHaveAttribute('name', 'any_name')
-  })
-})
+    expect(button).toHaveAttribute("name", "any_name");
+  });
+});
