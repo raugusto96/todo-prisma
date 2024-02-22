@@ -10,6 +10,7 @@ export const HeaderWrapper = styled.header`
 
 export const Title = styled.h1`
   display: flex;
+  font-weight: 700;
   font-size: 3rem;
   gap: 2rem;
   color: white;
