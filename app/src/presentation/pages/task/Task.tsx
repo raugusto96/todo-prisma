@@ -11,7 +11,12 @@ const Task: React.FC = () => {
         name='add-task'
         value={""}
       />
-      <Button name='add' displayValue='Adicionar' clickHandler={() => []} />
+      <Button
+        name='add'
+        displayValue='Adicionar'
+        clickHandler={() => []}
+        type='submit'
+      />
     </Container>
   );
 };
