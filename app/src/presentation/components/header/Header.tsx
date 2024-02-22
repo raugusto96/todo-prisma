@@ -1,11 +1,11 @@
 import React from "react";
-import { Head } from "./Header.styles";
+import { HeaderWrapper } from "./Header.styles";
 
 const Header: React.FC = () => {
   return (
-    <Head>
+    <HeaderWrapper>
       <h1>ToDo Prisma</h1>
-    </Head>
+    </HeaderWrapper>
   );
 };
 

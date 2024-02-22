@@ -1,7 +1,7 @@
-import { Foot } from "./Footer.styles";
+import { FooterWrapper } from "./Footer.styles";
 
 const Footer: React.FC = () => {
-  return <Foot>© Rodrigo Augusto 2024</Foot>;
+  return <FooterWrapper>© Rodrigo Augusto 2024</FooterWrapper>;
 };
 
 export default Footer;
