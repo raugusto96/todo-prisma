@@ -3,4 +3,5 @@ export interface ButtonProps {
   clickHandler: (e: any) => void;
   name: string;
   styles?: object;
+  type?: "button" | "submit" | "reset";
 }
