@@ -1,5 +1,6 @@
 export interface ButtonProps {
   displayValue: string;
-  clickHandler: () => void;
+  clickHandler: (e: any) => void;
   name: string;
+  styles?: Object;
 }

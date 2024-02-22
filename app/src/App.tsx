@@ -1,10 +1,9 @@
 import './App.css'
+import Task from './presentation/pages/task/Task'
 
 function App() {
   return (
-    <>
-      <p>app</p>
-    </>
+    <Task />
   )
 }
 
