@@ -7,6 +7,7 @@ export const Container = styled.div`
   justify-content: center;
   background-color: #242424;
   font-family: "Roboto", sans-serif;
+  color: rgba(230, 230, 230, 0.8);
   height: 100vh;
   width: 100vw;
   overflow: hidden;
