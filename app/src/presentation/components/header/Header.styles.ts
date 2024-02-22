@@ -5,7 +5,7 @@ export const HeaderWrapper = styled.header`
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: calc(100% - 80%);
+  padding: 1rem;
 `;
 
 export const Title = styled.h1`

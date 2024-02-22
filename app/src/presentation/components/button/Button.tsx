@@ -8,17 +8,23 @@ export const Button: React.FC<ButtonProps> = ({
   name,
   styles,
   type = "button",
+  icon,
+  isIconCheck,
+  isIconCancel,
   ...props
 }) => {
   return (
     <ButtonWrapper
+      isIconCheck={isIconCheck}
+      isIconCancel={isIconCancel}
       {...props}
       style={styles}
       onClick={clickHandler}
       name={name}
       type={type}
     >
-      {displayValue}
+      {displayValue && displayValue}
+      {icon && React.createElement(icon)}
     </ButtonWrapper>
   );
 };

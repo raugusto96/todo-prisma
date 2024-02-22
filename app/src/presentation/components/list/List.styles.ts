@@ -25,7 +25,3 @@ export const ListTasks = styled.div`
   width: 100%;
   height: calc(100% - 15%);
 `;
-
-export const Item = styled.div`
-  font-size: 1.1rem;
-`;

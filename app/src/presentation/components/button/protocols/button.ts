@@ -1,4 +1,5 @@
 import React from "react";
+import { IconType } from "react-icons";
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -7,4 +8,7 @@ export interface ButtonProps
   name: string;
   styles?: object;
   type?: "button" | "submit" | "reset";
+  icon: IconType;
+  isIconCheck?: boolean;
+  isIconCancel?: boolean;
 }
