@@ -1,10 +1,14 @@
-import './App.css'
-import Task from './presentation/pages/task/Task'
+import "./App.css";
+import Header from "./presentation/components/header/Header";
+import Task from "./presentation/pages/task/Task";
 
 function App() {
   return (
-    <Task />
-  )
+    <>
+      <Header />
+      <Task />
+    </>
+  );
 }
 
-export default App
+export default App;
