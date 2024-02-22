@@ -20,7 +20,7 @@ const Text: React.FC<InputTextProps> = ({
         placeholder={placeholder}
         id={id}
         name={name}
-        value={value}
+        // value={value}
       />
     </Label>
   );
