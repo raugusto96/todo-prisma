@@ -1,16 +1,14 @@
-import { Button } from '@/presentation/components/button/Button'
-import { Container } from './Task.styles'
+import { Button } from "@/presentation/components/button/Button";
+import { Container } from "./Task.styles";
+import Text from "@/presentation/components/input/text/Text";
 
 const Task: React.FC = () => {
   return (
     <Container>
-      <Button
-        name='add'
-        displayValue='Adicionar'
-        clickHandler={(event) => { console.log(event.target)}}
-      />
+      <Text placeholder='Adicione a tarefa' />
+      <Button name='add' displayValue='Adicionar' clickHandler={() => []} />
     </Container>
-  )
-}
+  );
+};
 
-export default Task
+export default Task;
