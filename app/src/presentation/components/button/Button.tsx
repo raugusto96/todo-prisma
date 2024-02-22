@@ -8,9 +8,11 @@ export const Button: React.FC<ButtonProps> = ({
   name,
   styles,
   type = "button",
+  ...props
 }) => {
   return (
     <ButtonWrapper
+      {...props}
       style={styles}
       onClick={clickHandler}
       name={name}
