@@ -1,7 +1,15 @@
-import { FooterWrapper } from "./Footer.styles";
+import { FooterWrapper, Title } from "./Footer.styles";
+import { FaRegCopyright } from "react-icons/fa6";
 
 const Footer: React.FC = () => {
-  return <FooterWrapper>© Rodrigo Augusto 2024</FooterWrapper>;
+  return (
+    <FooterWrapper>
+      <Title>
+        <FaRegCopyright />
+        Rodrigo Augusto 2024
+      </Title>
+    </FooterWrapper>
+  );
 };
 
 export default Footer;
