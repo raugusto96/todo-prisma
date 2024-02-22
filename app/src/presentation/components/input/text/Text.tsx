@@ -9,11 +9,13 @@ const Text: React.FC<InputTextProps> = ({
   value,
   labelText,
   styles,
+  ...props
 }) => {
   return (
     <Label htmlFor={id}>
       {labelText}
       <Input
+        {...props}
         style={styles}
         placeholder={placeholder}
         id={id}
