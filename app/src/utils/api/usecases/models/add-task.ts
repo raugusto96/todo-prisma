@@ -4,7 +4,7 @@ export enum TaskStatus {
   done = "DONE",
 }
 
-export interface TaskModel {
+export interface AddTaskModel {
   id: string;
   message: string;
   status: TaskStatus;
