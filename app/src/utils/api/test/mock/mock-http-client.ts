@@ -5,7 +5,7 @@ import {
   HttpClient,
 } from "@/utils/api/protocols/http";
 
-export class HttpPostClientSpy<R = any> implements HttpClient<R> {
+export class HttpClientSpy<R = any> implements HttpClient<R> {
   url?: string;
   body?: any;
   method?: string;
