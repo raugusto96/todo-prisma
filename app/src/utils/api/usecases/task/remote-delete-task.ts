@@ -10,6 +10,11 @@ export class RemoteDeleteTask implements DeleteTask {
     const httpResponse = this.httpClient.request({
       url: this.url,
       method: "delete",
+      headers: {
+        params: {
+          taskId: params.taskId,
+        },
+      },
     });
   }
 }
