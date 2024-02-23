@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker";
-import { RemoteTask } from "./remote-task";
+import { RemoteAddTask } from "./remote-add-task";
 import { HttpClientSpy } from "@/utils/api/test/mock";
 import { mockTask, mockTaskModel } from "@/utils/api/test/mock/task";
 import { UnexpectedError } from "@/utils/api/errors";
@@ -9,31 +9,31 @@ import { TaskModel } from "../models";
 const makeHttpClientSpy = () => new HttpClientSpy<TaskModel>();
 
 interface SutTypes {
-  sut: RemoteTask;
+  sut: RemoteAddTask;
   httpClientSpy: HttpClientSpy<TaskModel>;
 }
 
 const makeSut = (url: string = faker.internet.url()): SutTypes => {
   const httpClientSpy = makeHttpClientSpy();
-  const sut = new RemoteTask(url, httpClientSpy);
+  const sut = new RemoteAddTask(url, httpClientSpy);
   return {
     sut,
     httpClientSpy,
   };
 };
 
-describe("RemoteTask", () => {
+describe("RemoteAddTask", () => {
   test("should call HttpClient with the correct url", async () => {
     const url = faker.internet.url();
     const { sut, httpClientSpy } = makeSut(url);
-    await sut.task(mockTask());
+    await sut.add(mockTask());
     expect(httpClientSpy.url).toBe(url);
   });
 
   test("should call HttpClient with the correct body", async () => {
     const taskParams = mockTask();
     const { sut, httpClientSpy } = makeSut();
-    await sut.task(taskParams);
+    await sut.add(taskParams);
     expect(httpClientSpy.body).toEqual(taskParams);
   });
 
@@ -42,7 +42,7 @@ describe("RemoteTask", () => {
     httpClientSpy.response = {
       statusCode: HttpStatusCode.badRequest,
     };
-    const promise = sut.task(mockTask());
+    const promise = sut.add(mockTask());
     expect(promise).rejects.toThrow(new UnexpectedError());
   });
 
@@ -51,7 +51,7 @@ describe("RemoteTask", () => {
     httpClientSpy.response = {
       statusCode: HttpStatusCode.notFound,
     };
-    const promise = sut.task(mockTask());
+    const promise = sut.add(mockTask());
     expect(promise).rejects.toThrow(new UnexpectedError());
   });
 
@@ -60,7 +60,7 @@ describe("RemoteTask", () => {
     httpClientSpy.response = {
       statusCode: HttpStatusCode.notFound,
     };
-    const promise = sut.task(mockTask());
+    const promise = sut.add(mockTask());
     expect(promise).rejects.toThrow(new UnexpectedError());
   });
 
@@ -71,7 +71,7 @@ describe("RemoteTask", () => {
       statusCode: HttpStatusCode.ok,
       body: httpResult,
     };
-    const task = await sut.task(mockTask());
+    const task = await sut.add(mockTask());
     expect(task).toEqual(httpResult);
   });
 });

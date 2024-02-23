@@ -1,14 +1,14 @@
 import { HttpClient, HttpStatusCode } from "@/utils/api/protocols/http";
-import { Task } from "@/utils/api/usecases/protocols";
+import { AddTask } from "@/utils/api/usecases/protocols";
 import { UnexpectedError } from "@/utils/api/errors";
 
-export class RemoteTask implements Task {
+export class RemoteAddTask implements AddTask {
   constructor(
     private readonly url: string,
     private readonly httpPostClient: HttpClient<RemoteTask.Model>
   ) {}
 
-  async task(params: Task.Params): Promise<Task.Model> {
+  async add(params: AddTask.Params): Promise<AddTask.Model> {
     const httpResponse = await this.httpPostClient.request({
       url: this.url,
       method: "post",
@@ -24,5 +24,5 @@ export class RemoteTask implements Task {
 }
 
 export namespace RemoteTask {
-  export type Model = Task.Model;
+  export type Model = AddTask.Model;
 }
