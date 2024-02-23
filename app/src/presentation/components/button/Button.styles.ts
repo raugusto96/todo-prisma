@@ -19,4 +19,8 @@ export const ButtonWrapper = styled.button<ButtonWrapperProps>`
   width: calc(100vw - 100%);
   border-radius: 5px;
   padding: 0.8rem;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
