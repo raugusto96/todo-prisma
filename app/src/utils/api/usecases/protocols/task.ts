@@ -1,9 +1,12 @@
 import { TaskModel } from "@/utils/api/usecases/models/task";
-
-export type TaskParams = {
-  message: string;
-};
-
 export interface Task {
-  task: (params: TaskParams) => Promise<TaskModel>;
+  task: (params: Task.Params) => Promise<TaskModel>;
+}
+
+export namespace Task {
+  export type Params = {
+    message: string;
+  };
+
+  export type Model = TaskModel;
 }

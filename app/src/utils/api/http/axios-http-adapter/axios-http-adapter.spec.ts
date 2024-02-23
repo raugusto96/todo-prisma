@@ -1,6 +1,5 @@
 import { AxiosHttpAdapter } from "./axios-http-adapter";
-import { mockAxios } from "@/utils/api/test/mock";
-import { mockPostRequest } from "@/utils/api/test/mock";
+import { mockAxios, mockHttpRequest } from "@/utils/api/test/mock";
 import axios from "axios";
 
 vi.mock("axios");
@@ -21,15 +20,25 @@ const makeSut = (): SutTypes => {
 
 describe("AxiosHttpClient", () => {
   test("should call axios with correct values", async () => {
-    const request = mockPostRequest();
+    const request = mockHttpRequest();
     const { sut, mockedAxios } = makeSut();
-    await sut.post(request);
-    expect(mockedAxios.post).toHaveBeenCalledWith(request.url, request.body);
+    await sut.request(request);
+    expect(mockedAxios.request).toHaveBeenCalledWith({
+      url: request.url,
+      data: request.body,
+      headers: request.headers,
+      method: request.method,
+    });
   });
 
-  test("should return the correct statusCode and body", () => {
+  test("should return correct response", async () => {
     const { sut, mockedAxios } = makeSut();
-    const promise = sut.post(mockPostRequest());
-    expect(promise).toEqual(mockedAxios.post.mock.results[1].value);
+    const httpResponse = await sut.request(mockHttpRequest());
+    const axiosResponse = await mockedAxios.request.mock.results[0].value;
+
+    expect(httpResponse).toEqual({
+      statusCode: axiosResponse.status,
+      body: axiosResponse.data,
+    });
   });
 });
