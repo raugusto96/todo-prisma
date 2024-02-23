@@ -1,2 +1,2 @@
 export * from "./add-task";
-export * from "./remove-task";
+export * from "./delete-task";
