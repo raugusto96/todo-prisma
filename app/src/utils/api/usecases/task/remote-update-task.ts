@@ -1,4 +1,5 @@
-import { HttpClient } from "../../protocols/http";
+import { UnexpectedError } from "../../errors";
+import { HttpClient, HttpStatusCode } from "../../protocols/http";
 import { UpdateTask } from "../protocols/update-task";
 
 export class RemoteUpdateTask {
@@ -8,11 +9,17 @@ export class RemoteUpdateTask {
   ) {}
 
   async update(params: UpdateTask.Params): Promise<void> {
-    await this.httpClient.request({
+    const httpResponse = await this.httpClient.request({
       url: this.url,
       method: "put",
       body: params.body,
       headers: params.headers,
     });
+    switch (httpResponse.statusCode) {
+      case HttpStatusCode.ok:
+        break;
+      default:
+        throw new UnexpectedError();
+    }
   }
 }
