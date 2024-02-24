@@ -29,3 +29,9 @@ export const mockUpdateParams = (): UpdateTask.Params => ({
     status: faker.company.buzzNoun(),
   },
 });
+
+export const mockUpdateResponse = (): UpdateTask.Model => ({
+  id: faker.database.mongodbObjectId(),
+  message: faker.animal.bear(),
+  status: TaskStatus.done,
+});

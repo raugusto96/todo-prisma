@@ -2,13 +2,13 @@ import { UnexpectedError } from "../../errors";
 import { HttpClient, HttpStatusCode } from "../../protocols/http";
 import { UpdateTask } from "../protocols/update-task";
 
-export class RemoteUpdateTask {
+export class RemoteUpdateTask implements UpdateTask {
   constructor(
     private readonly url: string,
     private readonly httpClient: HttpClient
   ) {}
 
-  async update(params: UpdateTask.Params): Promise<void> {
+  async update(params: UpdateTask.Params): Promise<UpdateTask.Model> {
     const httpResponse = await this.httpClient.request({
       url: this.url,
       method: "put",
@@ -17,7 +17,7 @@ export class RemoteUpdateTask {
     });
     switch (httpResponse.statusCode) {
       case HttpStatusCode.ok:
-        break;
+        return httpResponse.body;
       default:
         throw new UnexpectedError();
     }
