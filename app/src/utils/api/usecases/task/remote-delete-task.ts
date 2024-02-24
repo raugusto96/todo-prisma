@@ -17,7 +17,6 @@ export class RemoteDeleteTask implements DeleteTask {
         },
       },
     });
-    console.log(httpResponse);
     switch (httpResponse.statusCode) {
       case HttpStatusCode.noContent:
         return httpResponse.body;
