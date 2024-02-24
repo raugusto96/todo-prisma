@@ -24,6 +24,9 @@ describe("RemoteDeleteTask", () => {
   test("should call HttpClient with the correct url and verb", async () => {
     const url = faker.internet.url();
     const { sut, httpClientSpy } = makeSut(url);
+    httpClientSpy.response = {
+      statusCode: HttpStatusCode.noContent,
+    };
     await sut.delete(mockDeleteParams());
     expect(httpClientSpy.url).toBe(url);
   });
@@ -31,6 +34,9 @@ describe("RemoteDeleteTask", () => {
   test("should call HttpClient with the headers params", async () => {
     const params = mockDeleteParams();
     const { sut, httpClientSpy } = makeSut();
+    httpClientSpy.response = {
+      statusCode: HttpStatusCode.noContent,
+    };
     await sut.delete(params);
     expect(httpClientSpy.headers.params).toEqual(params);
   });
@@ -44,7 +50,7 @@ describe("RemoteDeleteTask", () => {
     expect(promise).rejects.toThrow(new UnexpectedError());
   });
 
-  test("should throw UnexpectedError if HttpClient returns 404", async () => {
+  test("should throw UnexpectedError if HttpClient returns 404", () => {
     const { sut, httpClientSpy } = makeSut();
     httpClientSpy.response = {
       statusCode: HttpStatusCode.notFound,
@@ -53,12 +59,22 @@ describe("RemoteDeleteTask", () => {
     expect(promise).rejects.toThrow(new UnexpectedError());
   });
 
-  test("should throw UnexpectedError if HttpClient returns 500", async () => {
+  test("should throw UnexpectedError if HttpClient returns 500", () => {
     const { sut, httpClientSpy } = makeSut();
     httpClientSpy.response = {
       statusCode: HttpStatusCode.serverError,
     };
     const promise = sut.delete(mockDeleteParams());
     expect(promise).rejects.toThrow(new UnexpectedError());
+  });
+
+  test("should return null if HttpClient returns 204 ", async () => {
+    const { sut, httpClientSpy } = makeSut();
+    httpClientSpy.response = {
+      statusCode: HttpStatusCode.noContent,
+      body: null,
+    };
+    const task = await sut.delete(mockDeleteParams());
+    expect(task).toBeNull();
   });
 });
