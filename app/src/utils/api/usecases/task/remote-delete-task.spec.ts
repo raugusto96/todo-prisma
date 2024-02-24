@@ -1,6 +1,8 @@
 import { faker } from "@faker-js/faker";
 import { HttpClientSpy, mockDeleteParams } from "../../test/mock";
 import { RemoteDeleteTask } from "./remote-delete-task";
+import { HttpStatusCode } from "../../protocols/http";
+import { UnexpectedError } from "../../errors";
 
 const makeHttpClientSpy = () => new HttpClientSpy();
 
@@ -31,5 +33,14 @@ describe("RemoteDeleteTask", () => {
     const { sut, httpClientSpy } = makeSut();
     await sut.delete(params);
     expect(httpClientSpy.headers.params).toEqual(params);
+  });
+
+  test("should throw UnexpectedError if HttpClient returns 400", async () => {
+    const { sut, httpClientSpy } = makeSut();
+    httpClientSpy.response = {
+      statusCode: HttpStatusCode.badRequest,
+    };
+    const promise = sut.delete(mockDeleteParams());
+    expect(promise).rejects.toThrow(new UnexpectedError());
   });
 });
