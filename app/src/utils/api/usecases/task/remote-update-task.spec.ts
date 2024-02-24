@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker";
-import { HttpClientSpy } from "../../test/mock";
+import { HttpClientSpy, mockUpdateParams } from "../../test/mock";
 import { RemoteUpdateTask } from "./remote-update-task";
 import { UpdateTask } from "../protocols/update-task";
 import { HttpStatusCode } from "../../protocols/http";
@@ -29,17 +29,7 @@ describe("RemoteUpdateTask", () => {
   });
 
   test("should call HttpClient with correct body and headers", async () => {
-    const params = {
-      headers: {
-        params: {
-          taskId: faker.database.mongodbObjectId(),
-        },
-      },
-      body: {
-        message: faker.animal.bear(),
-        status: faker.color.rgb(),
-      },
-    };
+    const params = mockUpdateParams();
     const { sut, httpClientSpy } = makeSut();
     httpClientSpy.response = {
       statusCode: HttpStatusCode.ok,

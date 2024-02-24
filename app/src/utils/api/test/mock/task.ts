@@ -2,6 +2,7 @@ import { faker } from "@faker-js/faker";
 import { AddTask } from "@/utils/api/usecases/protocols/add-task";
 import { TaskStatus } from "../../usecases/models/add-task";
 import { DeleteTask } from "../../usecases/protocols";
+import { UpdateTask } from "../../usecases/protocols/update-task";
 
 export const mockTask = (): AddTask.Params => ({
   message: faker.commerce.productName(),
@@ -15,4 +16,16 @@ export const mockTaskModel = (): AddTask.Model => ({
 
 export const mockDeleteParams = (): DeleteTask.Params => ({
   taskId: faker.database.mongodbObjectId(),
+});
+
+export const mockUpdateParams = (): UpdateTask.Params => ({
+  headers: {
+    params: {
+      taskId: faker.database.mongodbObjectId(),
+    },
+  },
+  body: {
+    message: faker.commerce.product(),
+    status: faker.company.buzzNoun(),
+  },
 });
