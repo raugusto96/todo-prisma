@@ -11,6 +11,8 @@ export class RemoteUpdateTask {
     await this.httpClient.request({
       url: this.url,
       method: "put",
+      body: params.body,
+      headers: params.headers,
     });
   }
 }
