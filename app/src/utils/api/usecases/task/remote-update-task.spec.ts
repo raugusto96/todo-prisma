@@ -1,5 +1,9 @@
 import { faker } from "@faker-js/faker";
-import { HttpClientSpy, mockUpdateParams } from "../../test/mock";
+import {
+  HttpClientSpy,
+  mockUpdateParams,
+  mockUpdateResponse,
+} from "../../test/mock";
 import { RemoteUpdateTask } from "./remote-update-task";
 import { UpdateTask } from "../protocols/update-task";
 import { HttpStatusCode } from "../../protocols/http";
@@ -65,5 +69,16 @@ describe("RemoteUpdateTask", () => {
     };
     const promise = sut.update(mockUpdateParams());
     expect(promise).rejects.toThrow(new UnexpectedError());
+  });
+
+  test("should return a TaskModel if HttpClient returns 200", async () => {
+    const { sut, httpClientSpy } = makeSut();
+    const httpResult = mockUpdateResponse();
+    httpClientSpy.response = {
+      statusCode: HttpStatusCode.ok,
+      body: httpResult,
+    };
+    const httpResponse = await sut.update(mockUpdateParams());
+    expect(httpResponse).toEqual(httpResult);
   });
 });
