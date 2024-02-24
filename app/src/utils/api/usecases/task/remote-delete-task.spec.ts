@@ -43,4 +43,13 @@ describe("RemoteDeleteTask", () => {
     const promise = sut.delete(mockDeleteParams());
     expect(promise).rejects.toThrow(new UnexpectedError());
   });
+
+  test("should throw UnexpectedError if HttpClient returns 404", async () => {
+    const { sut, httpClientSpy } = makeSut();
+    httpClientSpy.response = {
+      statusCode: HttpStatusCode.notFound,
+    };
+    const promise = sut.delete(mockDeleteParams());
+    expect(promise).rejects.toThrow(new UnexpectedError());
+  });
 });
