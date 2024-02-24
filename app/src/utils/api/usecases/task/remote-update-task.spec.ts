@@ -2,6 +2,7 @@ import { faker } from "@faker-js/faker";
 import { HttpClientSpy } from "../../test/mock";
 import { RemoteUpdateTask } from "./remote-update-task";
 import { UpdateTask } from "../protocols/update-task";
+import { HttpStatusCode } from "../../protocols/http";
 
 const makeHttpClientSpy = (): HttpClientSpy => new HttpClientSpy();
 
@@ -25,5 +26,26 @@ describe("RemoteUpdateTask", () => {
     const { sut, httpClientSpy } = makeSut(url);
     sut.update({} as UpdateTask.Params);
     expect(httpClientSpy.url).toBe(url);
+  });
+
+  test("should call HttpClient with correct body and headers", async () => {
+    const params = {
+      headers: {
+        params: {
+          taskId: faker.database.mongodbObjectId(),
+        },
+      },
+      body: {
+        message: faker.animal.bear(),
+        status: faker.color.rgb(),
+      },
+    };
+    const { sut, httpClientSpy } = makeSut();
+    httpClientSpy.response = {
+      statusCode: HttpStatusCode.ok,
+    };
+    await sut.update(params);
+    expect(httpClientSpy.body).toBe(params.body);
+    expect(httpClientSpy.headers).toBe(params.headers);
   });
 });
