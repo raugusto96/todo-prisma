@@ -48,4 +48,13 @@ describe("RemoteUpdateTask", () => {
     const promise = sut.update(mockUpdateParams());
     expect(promise).rejects.toThrow(new UnexpectedError());
   });
+
+  test("should throw UnexpectedError if HttpClient returns 404", () => {
+    const { sut, httpClientSpy } = makeSut();
+    httpClientSpy.response = {
+      statusCode: HttpStatusCode.notFound,
+    };
+    const promise = sut.update(mockUpdateParams());
+    expect(promise).rejects.toThrow(new UnexpectedError());
+  });
 });
