@@ -1,4 +1,5 @@
-import { HttpClient } from "../../protocols/http";
+import { UnexpectedError } from "../../errors";
+import { HttpClient, HttpStatusCode } from "../../protocols/http";
 import { DeleteTask } from "../protocols";
 
 export class RemoteDeleteTask implements DeleteTask {
@@ -7,7 +8,7 @@ export class RemoteDeleteTask implements DeleteTask {
     private readonly httpClient: HttpClient
   ) {}
   async delete(params: DeleteTask.Params): Promise<void> {
-    const httpResponse = this.httpClient.request({
+    const httpResponse = await this.httpClient.request({
       url: this.url,
       method: "delete",
       headers: {
@@ -16,5 +17,11 @@ export class RemoteDeleteTask implements DeleteTask {
         },
       },
     });
+    switch (httpResponse.statusCode) {
+      case HttpStatusCode.ok:
+        break;
+      default:
+        throw new UnexpectedError();
+    }
   }
 }
