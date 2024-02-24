@@ -57,4 +57,13 @@ describe("RemoteUpdateTask", () => {
     const promise = sut.update(mockUpdateParams());
     expect(promise).rejects.toThrow(new UnexpectedError());
   });
+
+  test("should throw UnexpectedError if HttpClient returns 500", () => {
+    const { sut, httpClientSpy } = makeSut();
+    httpClientSpy.response = {
+      statusCode: HttpStatusCode.serverError,
+    };
+    const promise = sut.update(mockUpdateParams());
+    expect(promise).rejects.toThrow(new UnexpectedError());
+  });
 });
