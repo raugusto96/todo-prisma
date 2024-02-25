@@ -45,4 +45,13 @@ describe("RemoteGetTask", () => {
     const promise = sut.get(mockGetParams());
     expect(promise).rejects.toThrow(new UnexpectedError());
   });
+
+  test("should throw UnexpectedError if HttpClient returns 500", () => {
+    const { sut, httpClientSpy } = makeSut();
+    httpClientSpy.response = {
+      statusCode: HttpStatusCode.serverError,
+    };
+    const promise = sut.get(mockGetParams());
+    expect(promise).rejects.toThrow(new UnexpectedError());
+  });
 });
