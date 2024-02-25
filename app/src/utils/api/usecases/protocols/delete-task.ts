@@ -1,9 +1,7 @@
 export interface DeleteTask {
-  delete(params: DeleteTask.Params): Promise<void>;
-}
+  /**
+   *  @returns Retorno vazio
+   */
 
-export namespace DeleteTask {
-  export type Params = {
-    taskId: string;
-  };
+  delete(): Promise<void>;
 }

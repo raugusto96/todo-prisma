@@ -7,15 +7,10 @@ export class RemoteDeleteTask implements DeleteTask {
     private readonly url: string,
     private readonly httpClient: HttpClient
   ) {}
-  async delete(params: DeleteTask.Params): Promise<null> {
+  async delete(): Promise<null> {
     const httpResponse = await this.httpClient.request({
       url: this.url,
       method: "delete",
-      headers: {
-        params: {
-          taskId: params.taskId,
-        },
-      },
     });
     switch (httpResponse.statusCode) {
       case HttpStatusCode.noContent:

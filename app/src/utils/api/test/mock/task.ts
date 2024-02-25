@@ -17,10 +17,6 @@ export const mockTaskModel = (): AddTask.Model => ({
   status: TaskStatus.pending,
 });
 
-export const mockDeleteParams = (): DeleteTask.Params => ({
-  taskId: faker.database.mongodbObjectId(),
-});
-
 export const mockUpdateParams = (): UpdateTask.Params => ({
   headers: {
     params: {

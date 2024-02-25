@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker";
-import { HttpClientSpy, mockDeleteParams } from "../../test/mock";
+import { HttpClientSpy } from "../../test/mock";
 import { RemoteDeleteTask } from "./remote-delete-task";
 import { HttpStatusCode } from "../../protocols/http";
 import { UnexpectedError } from "../../errors";
@@ -27,18 +27,8 @@ describe("RemoteDeleteTask", () => {
     httpClientSpy.response = {
       statusCode: HttpStatusCode.noContent,
     };
-    await sut.delete(mockDeleteParams());
+    await sut.delete();
     expect(httpClientSpy.url).toBe(url);
-  });
-
-  test("should call HttpClient with the headers params", async () => {
-    const params = mockDeleteParams();
-    const { sut, httpClientSpy } = makeSut();
-    httpClientSpy.response = {
-      statusCode: HttpStatusCode.noContent,
-    };
-    await sut.delete(params);
-    expect(httpClientSpy.headers.params).toEqual(params);
   });
 
   test("should throw UnexpectedError if HttpClient returns 400", async () => {
@@ -46,7 +36,7 @@ describe("RemoteDeleteTask", () => {
     httpClientSpy.response = {
       statusCode: HttpStatusCode.badRequest,
     };
-    const promise = sut.delete(mockDeleteParams());
+    const promise = sut.delete();
     expect(promise).rejects.toThrow(new UnexpectedError());
   });
 
@@ -55,7 +45,7 @@ describe("RemoteDeleteTask", () => {
     httpClientSpy.response = {
       statusCode: HttpStatusCode.notFound,
     };
-    const promise = sut.delete(mockDeleteParams());
+    const promise = sut.delete();
     expect(promise).rejects.toThrow(new UnexpectedError());
   });
 
@@ -64,7 +54,7 @@ describe("RemoteDeleteTask", () => {
     httpClientSpy.response = {
       statusCode: HttpStatusCode.serverError,
     };
-    const promise = sut.delete(mockDeleteParams());
+    const promise = sut.delete();
     expect(promise).rejects.toThrow(new UnexpectedError());
   });
 
@@ -74,7 +64,7 @@ describe("RemoteDeleteTask", () => {
       statusCode: HttpStatusCode.noContent,
       body: null,
     };
-    const task = await sut.delete(mockDeleteParams());
+    const task = await sut.delete();
     expect(task).toBeNull();
   });
 });

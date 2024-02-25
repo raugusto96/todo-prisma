@@ -5,7 +5,7 @@ import { UpdateTask } from "../protocols/update-task";
 export class RemoteUpdateTask implements UpdateTask {
   constructor(
     private readonly url: string,
-    private readonly httpClient: HttpClient
+    private readonly httpClient: HttpClient<RemoteUpdateTask.Model>
   ) {}
 
   async update(params: UpdateTask.Params): Promise<UpdateTask.Model> {
@@ -13,7 +13,6 @@ export class RemoteUpdateTask implements UpdateTask {
       url: this.url,
       method: "put",
       body: params.body,
-      headers: params.headers,
     });
     switch (httpResponse.statusCode) {
       case HttpStatusCode.ok:
@@ -22,4 +21,8 @@ export class RemoteUpdateTask implements UpdateTask {
         throw new UnexpectedError();
     }
   }
+}
+
+export namespace RemoteUpdateTask {
+  export type Model = UpdateTask.Model;
 }

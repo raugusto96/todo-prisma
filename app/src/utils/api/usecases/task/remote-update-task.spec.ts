@@ -33,7 +33,7 @@ describe("RemoteUpdateTask", () => {
     expect(httpClientSpy.url).toBe(url);
   });
 
-  test("should call HttpClient with correct body and headers", async () => {
+  test("should call HttpClient with correct body", async () => {
     const params = mockUpdateParams();
     const { sut, httpClientSpy } = makeSut();
     httpClientSpy.response = {
@@ -41,7 +41,6 @@ describe("RemoteUpdateTask", () => {
     };
     await sut.update(params);
     expect(httpClientSpy.body).toBe(params.body);
-    expect(httpClientSpy.headers).toBe(params.headers);
   });
 
   test("should throw UnexpectedError if HttpClient returns 400", () => {

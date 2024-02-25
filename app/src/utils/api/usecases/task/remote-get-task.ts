@@ -5,7 +5,7 @@ import { GetTask } from "../protocols/get-task";
 export class RemoteGetTask implements GetTask {
   constructor(
     private readonly url: string,
-    private readonly httpClient: HttpClient
+    private readonly httpClient: HttpClient<RemoteGetTask.Model>
   ) {}
 
   async get(params: GetTask.Params): Promise<GetTask.Model | GetTask.Model[]> {
@@ -21,4 +21,8 @@ export class RemoteGetTask implements GetTask {
         throw new UnexpectedError();
     }
   }
+}
+
+export namespace RemoteGetTask {
+  export type Model = GetTask.Model | GetTask.Model[];
 }
