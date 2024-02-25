@@ -3,6 +3,7 @@ import { faker } from "@faker-js/faker";
 import { GetTask } from "../protocols/get-task";
 import { RemoteGetTask } from "./remote-get-task";
 import { HttpStatusCode } from "../../protocols/http";
+import { UnexpectedError } from "../../errors";
 
 interface SutTypes {
   sut: RemoteGetTask;
@@ -34,5 +35,14 @@ describe("RemoteGetTask", () => {
     };
     await sut.get(params);
     expect(httpClientSpy.headers).toBe(params.headers);
+  });
+
+  test("should throw UnexpectedError if HttpClient returns 404", () => {
+    const { sut, httpClientSpy } = makeSut();
+    httpClientSpy.response = {
+      statusCode: HttpStatusCode.notFound,
+    };
+    const promise = sut.get(mockGetParams());
+    expect(promise).rejects.toThrow(new UnexpectedError());
   });
 });
