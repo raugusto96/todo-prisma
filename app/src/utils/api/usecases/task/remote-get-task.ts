@@ -1,6 +1,6 @@
-import { UnexpectedError } from "../../errors";
-import { HttpClient, HttpStatusCode } from "../../protocols/http";
-import { GetTask } from "../protocols/get-task";
+import { UnexpectedError } from "@/utils/api/errors";
+import { HttpClient, HttpStatusCode } from "@/utils/api/protocols/http";
+import { GetTask } from "@/utils/api/usecases/protocols/get-task";
 
 export class RemoteGetTask implements GetTask {
   constructor(

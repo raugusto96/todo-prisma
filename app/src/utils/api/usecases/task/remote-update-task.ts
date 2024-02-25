@@ -1,6 +1,6 @@
-import { UnexpectedError } from "../../errors";
-import { HttpClient, HttpStatusCode } from "../../protocols/http";
-import { UpdateTask } from "../protocols/update-task";
+import { UnexpectedError } from "@/utils/api/errors";
+import { HttpClient, HttpStatusCode } from "@/utils/api/protocols/http";
+import { UpdateTask } from "@/utils/api/usecases/protocols/update-task";
 
 export class RemoteUpdateTask implements UpdateTask {
   constructor(

@@ -1,11 +1,6 @@
 import { faker } from "@faker-js/faker";
-import {
-  AddTask,
-  GetTask,
-  DeleteTask,
-  UpdateTask,
-} from "@/utils/api/usecases/protocols";
-import { TaskStatus } from "../../usecases/models/add-task";
+import { AddTask, GetTask, UpdateTask } from "@/utils/api/usecases/protocols";
+import { TaskStatus } from "@/utils/api/usecases/models/add-task";
 
 export const mockTask = (): AddTask.Params => ({
   message: faker.commerce.productName(),
@@ -18,11 +13,6 @@ export const mockTaskModel = (): AddTask.Model => ({
 });
 
 export const mockUpdateParams = (): UpdateTask.Params => ({
-  headers: {
-    params: {
-      taskId: faker.database.mongodbObjectId(),
-    },
-  },
   body: {
     message: faker.commerce.product(),
     status: faker.company.buzzNoun(),

@@ -1,4 +1,4 @@
-import { UpdateTaskModel } from "../models/update-task";
+import { UpdateTaskModel } from "@/utils/api/usecases/models";
 
 export interface UpdateTask {
   /**

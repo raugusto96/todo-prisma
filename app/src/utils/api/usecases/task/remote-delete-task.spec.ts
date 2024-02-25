@@ -1,8 +1,8 @@
 import { faker } from "@faker-js/faker";
-import { HttpClientSpy } from "../../test/mock";
+import { HttpClientSpy } from "@/utils/api/test/mock";
 import { RemoteDeleteTask } from "./remote-delete-task";
-import { HttpStatusCode } from "../../protocols/http";
-import { UnexpectedError } from "../../errors";
+import { HttpStatusCode } from "@/utils/api/protocols/http";
+import { UnexpectedError } from "@/utils/api/errors";
 
 const makeHttpClientSpy = () => new HttpClientSpy();
 

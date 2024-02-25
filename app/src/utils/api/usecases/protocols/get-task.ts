@@ -1,4 +1,4 @@
-import { GetTaskModel } from "../models/get-task";
+import { GetTaskModel } from "@/utils/api/usecases/models";
 
 export interface GetTask {
   /**

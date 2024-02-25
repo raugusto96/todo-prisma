@@ -1,6 +1,6 @@
-import { UnexpectedError } from "../../errors";
-import { HttpClient, HttpStatusCode } from "../../protocols/http";
-import { DeleteTask } from "../protocols";
+import { UnexpectedError } from "@/utils/api/errors";
+import { HttpClient, HttpStatusCode } from "@/utils/api/protocols/http";
+import { DeleteTask } from "@/utils/api/usecases/protocols";
 
 export class RemoteDeleteTask implements DeleteTask {
   constructor(

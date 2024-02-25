@@ -1,9 +1,9 @@
 import { HttpClientSpy, mockGetParams, mockGetResult } from "../../test/mock";
 import { faker } from "@faker-js/faker";
-import { GetTask } from "../protocols/get-task";
+import { GetTask } from "@/utils/api/usecases/protocols";
 import { RemoteGetTask } from "./remote-get-task";
-import { HttpStatusCode } from "../../protocols/http";
-import { UnexpectedError } from "../../errors";
+import { HttpStatusCode } from "@/utils/api/protocols/http";
+import { UnexpectedError } from "@/utils/api/errors";
 
 interface SutTypes {
   sut: RemoteGetTask;

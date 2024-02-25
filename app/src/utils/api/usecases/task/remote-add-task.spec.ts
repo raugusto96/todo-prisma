@@ -4,7 +4,7 @@ import { HttpClientSpy } from "@/utils/api/test/mock";
 import { mockTask, mockTaskModel } from "@/utils/api/test/mock/task";
 import { UnexpectedError } from "@/utils/api/errors";
 import { HttpStatusCode } from "@/utils/api/protocols/http";
-import { AddTaskModel } from "../models";
+import { AddTaskModel } from "@/utils/api/usecases/models";
 
 const makeHttpClientSpy = () => new HttpClientSpy<AddTaskModel>();
 

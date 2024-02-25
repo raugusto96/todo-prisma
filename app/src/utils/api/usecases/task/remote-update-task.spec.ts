@@ -3,11 +3,11 @@ import {
   HttpClientSpy,
   mockUpdateParams,
   mockUpdateResponse,
-} from "../../test/mock";
+} from "@/utils/api/test/mock";
 import { RemoteUpdateTask } from "./remote-update-task";
-import { UpdateTask } from "../protocols/update-task";
-import { HttpStatusCode } from "../../protocols/http";
-import { UnexpectedError } from "../../errors";
+import { UpdateTask } from "@/utils/api/usecases/protocols/update-task";
+import { HttpStatusCode } from "@/utils/api/protocols/http";
+import { UnexpectedError } from "@/utils/api/errors";
 
 const makeHttpClientSpy = (): HttpClientSpy => new HttpClientSpy();
 
