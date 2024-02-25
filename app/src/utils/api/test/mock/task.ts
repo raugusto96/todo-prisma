@@ -47,3 +47,9 @@ export const mockGetParams = (): GetTask.Params => ({
     },
   },
 });
+
+export const mockGetResult = (): GetTask.Model => ({
+  id: faker.database.mongodbObjectId(),
+  message: faker.color.space(),
+  status: TaskStatus.pending,
+});

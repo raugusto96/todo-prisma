@@ -16,7 +16,7 @@ export class RemoteGetTask {
     });
     switch (httpResponse.statusCode) {
       case HttpStatusCode.ok:
-        break;
+        return httpResponse.body;
       default:
         throw new UnexpectedError();
     }
