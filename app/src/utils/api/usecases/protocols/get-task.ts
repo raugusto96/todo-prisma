@@ -12,7 +12,8 @@ export interface GetTask {
  * Parâmetros para a solicitação de tarefas.
  */
 interface TaskRequestHeaders {
-  taskId: string;
+  message?: string | null | undefined;
+  status?: string | null | undefined;
 }
 
 /**

@@ -11,6 +11,7 @@ export class RemoteGetTask {
     await this.httpClient.request({
       url: this.url,
       method: "get",
+      headers: params.headers,
     });
   }
 }
