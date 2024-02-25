@@ -15,8 +15,8 @@ export const Button: React.FC<ButtonProps> = ({
 }) => {
   return (
     <ButtonWrapper
-      isIconCheck={isIconCheck}
-      isIconCancel={isIconCancel}
+      is_icon_check={isIconCheck?.toString()}
+      is_icon_cancel={isIconCancel?.toString()}
       {...props}
       style={styles}
       onClick={clickHandler}
