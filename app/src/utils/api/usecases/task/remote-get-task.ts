@@ -1,4 +1,5 @@
-import { HttpClient } from "../../protocols/http";
+import { UnexpectedError } from "../../errors";
+import { HttpClient, HttpStatusCode } from "../../protocols/http";
 import { GetTask } from "../protocols/get-task";
 
 export class RemoteGetTask {
@@ -8,10 +9,16 @@ export class RemoteGetTask {
   ) {}
 
   async get(params: GetTask.Params): Promise<void> {
-    await this.httpClient.request({
+    const httpResponse = await this.httpClient.request({
       url: this.url,
       method: "get",
       headers: params.headers,
     });
+    switch (httpResponse.statusCode) {
+      case HttpStatusCode.ok:
+        break;
+      default:
+        throw new UnexpectedError();
+    }
   }
 }
