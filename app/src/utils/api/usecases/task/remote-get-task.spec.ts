@@ -65,4 +65,15 @@ describe("RemoteGetTask", () => {
     const httpResponse = await sut.get(mockGetParams());
     expect(httpResponse).toEqual(httpResult);
   });
+
+  test("should return a TaskModel array if HttpClient returns 200", async () => {
+    const { sut, httpClientSpy } = makeSut();
+    const httpResult = [mockGetResult(), mockGetResult()];
+    httpClientSpy.response = {
+      statusCode: HttpStatusCode.ok,
+      body: httpResult,
+    };
+    const httpResponse = await sut.get(mockGetParams());
+    expect(httpResponse).toEqual(httpResult);
+  });
 });
