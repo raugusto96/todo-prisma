@@ -1,6 +1,3 @@
-import { config } from "dotenv";
-config();
-
-export const env = {
-  isDev: process.env.NODE,
+export default {
+  isDev: import.meta.env.DEV,
 };

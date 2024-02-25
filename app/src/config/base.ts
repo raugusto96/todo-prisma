@@ -1,7 +1,9 @@
-import { env } from "@/config";
+import env from "@/config/env";
 
-export const base = {
+const base = {
   api: {
-    url: env.isDev ? "localhost:5050" : "",
+    url: env.isDev ? "http://localhost:5050/api" : "",
   },
 };
+
+export default base;
