@@ -1,5 +1,6 @@
 import { LoadDbTasksRepository } from '../../repositories/db/usecases/load-tasks'
-import { noContent, ok, serverError } from '../../utils/helpers/http-helper'
+import { NotFoundEntityError } from '../../utils/errors/not-found-entity-error'
+import { notFound, ok, serverError } from '../../utils/helpers/http-helper'
 import { Controller, HttpRequest, HttpResponse } from '../../utils/protocols'
 
 export class LoadTasksController implements Controller {
@@ -8,7 +9,9 @@ export class LoadTasksController implements Controller {
   async handle(_httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
       const tasks = await this.loadDbTasksRepository.load()
-      return tasks.length ? ok(tasks) : noContent()
+      return tasks.length
+        ? ok(tasks)
+        : notFound(new NotFoundEntityError('Tasks'))
     } catch (error) {
       return serverError(error)
     }
