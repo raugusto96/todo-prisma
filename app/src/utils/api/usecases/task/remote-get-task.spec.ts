@@ -1,4 +1,4 @@
-import { HttpClientSpy, mockGetParams } from "../../test/mock";
+import { HttpClientSpy, mockGetParams, mockGetResult } from "../../test/mock";
 import { faker } from "@faker-js/faker";
 import { GetTask } from "../protocols/get-task";
 import { RemoteGetTask } from "./remote-get-task";
@@ -53,5 +53,16 @@ describe("RemoteGetTask", () => {
     };
     const promise = sut.get(mockGetParams());
     expect(promise).rejects.toThrow(new UnexpectedError());
+  });
+
+  test("should return one TaskModel if HttpClient returns 200", async () => {
+    const { sut, httpClientSpy } = makeSut();
+    const httpResult = mockGetResult();
+    httpClientSpy.response = {
+      statusCode: HttpStatusCode.ok,
+      body: httpResult,
+    };
+    const httpResponse = await sut.get(mockGetParams());
+    expect(httpResponse).toEqual(httpResult);
   });
 });
