@@ -9,6 +9,7 @@ const Text: React.FC<InputTextProps> = ({
   value,
   labelText,
   styles,
+  textHandler,
   ...props
 }) => {
   return (
@@ -20,7 +21,8 @@ const Text: React.FC<InputTextProps> = ({
         placeholder={placeholder}
         id={id}
         name={name}
-        // value={value}
+        onChange={textHandler}
+        value={value}
       />
     </Label>
   );
