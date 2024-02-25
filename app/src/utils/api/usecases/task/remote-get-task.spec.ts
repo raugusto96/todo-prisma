@@ -1,7 +1,8 @@
-import { HttpClientSpy } from "../../test/mock";
+import { HttpClientSpy, mockGetParams } from "../../test/mock";
 import { faker } from "@faker-js/faker";
 import { GetTask } from "../protocols/get-task";
 import { RemoteGetTask } from "./remote-get-task";
+import { HttpStatusCode } from "../../protocols/http";
 
 interface SutTypes {
   sut: RemoteGetTask;
@@ -23,5 +24,15 @@ describe("RemoteGetTask", () => {
     const { sut, httpClientSpy } = makeSut(url);
     sut.get({} as GetTask.Params);
     expect(httpClientSpy.url).toBe(url);
+  });
+
+  test("should call HttpClient with correct headers", async () => {
+    const params = mockGetParams();
+    const { sut, httpClientSpy } = makeSut();
+    httpClientSpy.response = {
+      statusCode: HttpStatusCode.ok,
+    };
+    await sut.get(params);
+    expect(httpClientSpy.headers).toBe(params.headers);
   });
 });
