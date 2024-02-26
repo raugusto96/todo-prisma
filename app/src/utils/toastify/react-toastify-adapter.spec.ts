@@ -2,6 +2,7 @@ import { faker } from "@faker-js/faker";
 import { ToastifyConfigs, ToastifyType } from "./protocols/toast";
 import { toast } from "react-toastify";
 import { ReactToastifyAdapter } from "./react-toastify-adapter";
+import { mockConfigs, mockMessage } from "./test/mock/toastify";
 
 vi.mock("react-toastify");
 
@@ -21,17 +22,9 @@ const makeSut = (configs: ToastifyConfigs, type: ToastifyType): SutTypes => {
 
 describe("ReactToastifyAdapter", () => {
   test("should call toast success method with correct values", () => {
-    const message = faker.lorem.words();
-    const configs: ToastifyConfigs = {
-      position: "top-right",
-      autoClose: Number(faker.number.octal()),
-      closeOnClick: faker.datatype.boolean(),
-      pauseOnHover: faker.datatype.boolean(),
-      theme: faker.color.human(),
-      hideProgressBar: faker.datatype.boolean(),
-    };
-    const toastifyType: ToastifyType = "success";
-    const { sut, mockedToast } = makeSut(configs, toastifyType);
+    const message = mockMessage();
+    const configs = mockConfigs();
+    const { sut, mockedToast } = makeSut(configs, "success");
     sut.notify(message);
     expect(mockedToast.success).toHaveBeenCalledWith(message, configs);
   });
