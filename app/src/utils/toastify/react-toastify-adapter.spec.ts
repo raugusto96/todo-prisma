@@ -10,8 +10,8 @@ interface SutTypes {
   mockedToast: jest.Mocked<typeof toast>;
 }
 
-const makeSut = (configs: ToastifyConfigs, type: ToastifyType): SutTypes => {
-  const sut = new ReactToastifyAdapter(configs, type);
+const makeSut = (configs: ToastifyConfigs): SutTypes => {
+  const sut = new ReactToastifyAdapter(configs);
   const mockedToast = toast as jest.Mocked<typeof toast>;
   return {
     sut,
@@ -23,32 +23,32 @@ describe("ReactToastifyAdapter", () => {
   test("should call toast success method with correct values", () => {
     const message = mockMessage();
     const configs = mockConfigs();
-    const { sut, mockedToast } = makeSut(configs, "success");
-    sut.notify(message);
+    const { sut, mockedToast } = makeSut(configs);
+    sut.notify(message, "success");
     expect(mockedToast.success).toHaveBeenCalledWith(message, configs);
   });
 
   test("should call toast error method with correct values", () => {
     const message = mockMessage();
     const configs = mockConfigs();
-    const { sut, mockedToast } = makeSut(configs, "error");
-    sut.notify(message);
+    const { sut, mockedToast } = makeSut(configs);
+    sut.notify(message, "error");
     expect(mockedToast.error).toHaveBeenCalledWith(message, configs);
   });
 
   test("should call toast info method with correct values", () => {
     const message = mockMessage();
     const configs = mockConfigs();
-    const { sut, mockedToast } = makeSut(configs, "info");
-    sut.notify(message);
+    const { sut, mockedToast } = makeSut(configs);
+    sut.notify(message, "info");
     expect(mockedToast.info).toHaveBeenCalledWith(message, configs);
   });
 
   test("should call toast warn method with correct values", () => {
     const message = mockMessage();
     const configs = mockConfigs();
-    const { sut, mockedToast } = makeSut(configs, "warn");
-    sut.notify(message);
+    const { sut, mockedToast } = makeSut(configs);
+    sut.notify(message, "warn");
     expect(mockedToast.warn).toHaveBeenCalledWith(message, configs);
   });
 });

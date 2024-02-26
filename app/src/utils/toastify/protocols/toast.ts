@@ -12,5 +12,5 @@ export interface ToastifyConfigs {
 }
 
 export interface Notifier {
-  notify(message: string): Id;
+  notify(message: string, toastifyType: ToastifyType): Id;
 }

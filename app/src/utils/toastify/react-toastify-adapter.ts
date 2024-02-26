@@ -2,13 +2,10 @@ import { Id, toast } from "react-toastify";
 import { Notifier, ToastifyConfigs, ToastifyType } from "./protocols/toast";
 
 export class ReactToastifyAdapter implements Notifier {
-  constructor(
-    private readonly toastifyConfigs: ToastifyConfigs,
-    private readonly toastifyType: ToastifyType
-  ) {}
+  constructor(private readonly toastifyConfigs: ToastifyConfigs) {}
 
-  notify(message: string): Id {
-    switch (this.toastifyType) {
+  notify(message: string, toastifyType: ToastifyType): Id {
+    switch (toastifyType) {
       case "warn":
         return toast.warn(message, this.toastifyConfigs);
       case "error":
