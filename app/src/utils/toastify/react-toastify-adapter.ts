@@ -13,6 +13,8 @@ export class ReactToastifyAdapter implements Notifier {
         return toast.success(message, this.toastifyConfigs);
       case "error":
         return toast.error(message, this.toastifyConfigs);
+      case "info":
+        return toast.info(message, this.toastifyConfigs);
       default:
         break;
     }
