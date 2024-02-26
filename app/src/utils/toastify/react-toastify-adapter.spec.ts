@@ -1,4 +1,4 @@
-import { ToastifyConfigs, ToastifyType } from "./protocols/toast";
+import { ToastifyConfigs } from "./protocols/toast";
 import { toast } from "react-toastify";
 import { ReactToastifyAdapter } from "./react-toastify-adapter";
 import { mockConfigs, mockMessage } from "./test/mock/toastify";
