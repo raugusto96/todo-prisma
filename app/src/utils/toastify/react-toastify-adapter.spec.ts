@@ -1,4 +1,3 @@
-import { faker } from "@faker-js/faker";
 import { ToastifyConfigs, ToastifyType } from "./protocols/toast";
 import { toast } from "react-toastify";
 import { ReactToastifyAdapter } from "./react-toastify-adapter";
