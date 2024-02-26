@@ -9,14 +9,14 @@ export class ReactToastifyAdapter implements Notifier {
 
   notify(message: string): Id {
     switch (this.toastifyType) {
-      case "success":
-        return toast.success(message, this.toastifyConfigs);
+      case "warn":
+        return toast.warn(message, this.toastifyConfigs);
       case "error":
         return toast.error(message, this.toastifyConfigs);
       case "info":
         return toast.info(message, this.toastifyConfigs);
       default:
-        break;
+        return toast.success(message, this.toastifyConfigs);
     }
   }
 }
