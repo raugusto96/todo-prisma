@@ -1,19 +1,18 @@
-import { toast } from "react-toastify";
-import { ToastifyConfigs, ToastifyType } from "./protocols/toast";
+import { Id, toast } from "react-toastify";
+import { Notifier, ToastifyConfigs, ToastifyType } from "./protocols/toast";
 
-export class ReactToastifyAdapter {
+export class ReactToastifyAdapter implements Notifier {
   constructor(
     private readonly toastifyConfigs: ToastifyConfigs,
     private readonly toastifyType: ToastifyType
   ) {}
 
-  notify(message: string): void {
+  notify(message: string): Id {
     switch (this.toastifyType) {
       case "success":
-        toast.success(message, this.toastifyConfigs);
-
-        break;
-
+        return toast.success(message, this.toastifyConfigs);
+      case "error":
+        return toast.error(message, this.toastifyConfigs);
       default:
         break;
     }

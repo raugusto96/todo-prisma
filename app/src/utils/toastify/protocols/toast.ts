@@ -1,4 +1,4 @@
-import { ToastPosition } from "react-toastify";
+import { Id, ToastPosition } from "react-toastify";
 
 export type ToastifyType = "success" | "error" | "warn" | "info";
 
@@ -9,4 +9,8 @@ export interface ToastifyConfigs {
   closeOnClick: boolean;
   theme: string;
   pauseOnHover: boolean;
+}
+
+export interface Notifier {
+  notify(message: string): Id;
 }
