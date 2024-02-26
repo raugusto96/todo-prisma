@@ -5,6 +5,20 @@ import { ReactToastifyAdapter } from "./react-toastify-adapter";
 
 vi.mock("react-toastify");
 
+interface SutTypes {
+  sut: ReactToastifyAdapter;
+  mockedToast: jest.Mocked<typeof toast>;
+}
+
+const makeSut = (configs: ToastifyConfigs, type: ToastifyType): SutTypes => {
+  const sut = new ReactToastifyAdapter(configs, type);
+  const mockedToast = toast as jest.Mocked<typeof toast>;
+  return {
+    sut,
+    mockedToast,
+  };
+};
+
 describe("ReactToastifyAdapter", () => {
   test("should call toast success method with correct values", () => {
     const message = faker.lorem.words();
@@ -17,9 +31,8 @@ describe("ReactToastifyAdapter", () => {
       hideProgressBar: faker.datatype.boolean(),
     };
     const toastifyType: ToastifyType = "success";
-    const sut = new ReactToastifyAdapter(configs, toastifyType);
+    const { sut, mockedToast } = makeSut(configs, toastifyType);
     sut.notify(message);
-    const mockedToast = toast as jest.Mocked<typeof toast>;
     expect(mockedToast.success).toHaveBeenCalledWith(message, configs);
   });
 });
