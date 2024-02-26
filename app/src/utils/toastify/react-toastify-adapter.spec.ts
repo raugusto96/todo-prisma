@@ -28,4 +28,12 @@ describe("ReactToastifyAdapter", () => {
     sut.notify(message);
     expect(mockedToast.success).toHaveBeenCalledWith(message, configs);
   });
+
+  test("should call toast error method with correct values", () => {
+    const message = mockMessage();
+    const configs = mockConfigs();
+    const { sut, mockedToast } = makeSut(configs, "error");
+    sut.notify(message);
+    expect(mockedToast.error).toHaveBeenCalledWith(message, configs);
+  });
 });
