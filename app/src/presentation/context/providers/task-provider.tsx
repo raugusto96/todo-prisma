@@ -23,6 +23,7 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({ children }) => {
   // States
   const [tasks, setTasks] = useState<GetTask.Model[]>([]);
   const [taskMessage, setTaskMessage] = useState("");
+  const [taskToUpdate, setTaskToUpdate] = useState<GetTask.Model | undefined>();
 
   // Callbacks
   const addTask = useCallback(
@@ -44,6 +45,16 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({ children }) => {
     [tasks]
   );
 
+  const updateTask = useCallback(
+    (taskId: string) => {
+      const updatedTasks = tasks.map((task) =>
+        task.id === taskId ? taskToUpdate : task
+      );
+      setTasks(updatedTasks);
+    },
+    [tasks, taskToUpdate]
+  );
+
   const fetchAddTask = useCallback(async () => {
     try {
       const { statusCode, body } = await axiosHttpAdapter.request({
@@ -57,7 +68,6 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({ children }) => {
         case HttpStatusCode.ok:
           addTask(body);
           setTaskMessage("");
-          reactToastifyAdapter.notify("Tarefa criada com sucesso", "success");
           break;
 
         default:
@@ -78,11 +88,12 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({ children }) => {
         case HttpStatusCode.ok:
           setTasks(body);
           break;
+        case HttpStatusCode.noContent:
+          break;
 
         default:
           throw new UnexpectedError();
       }
-      reactToastifyAdapter.notify("Tarefas recebidas com sucesso", "success");
     } catch (error) {
       reactToastifyAdapter.notify(error.message, "error");
     }
@@ -108,6 +119,34 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({ children }) => {
     }
   }, []);
 
+  const fetchUpdateTask = useCallback(
+    async (taskId: string) => {
+      try {
+        const { statusCode } = await axiosHttpAdapter.request({
+          method: "put",
+          url: `${base.api.url}/task/${taskId}`,
+          body: taskToUpdate,
+        });
+        switch (statusCode) {
+          case HttpStatusCode.ok:
+            updateTask(taskId);
+            setTaskToUpdate(undefined);
+            reactToastifyAdapter.notify(
+              "Tarefa atualizada com sucesso",
+              "success"
+            );
+            break;
+
+          default:
+            throw new UnexpectedError();
+        }
+      } catch (error) {
+        reactToastifyAdapter.notify(error.message, "error");
+      }
+    },
+    [taskToUpdate]
+  );
+
   // Effects
   useEffect(() => {
     if (taskMessage) fetchAddTask();
@@ -117,12 +156,18 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({ children }) => {
     fetchGetTask();
   }, []);
 
+  useEffect(() => {
+    if (taskToUpdate) fetchUpdateTask(taskToUpdate.id);
+  }, [taskToUpdate]);
+
   const providerValue = {
     tasks,
     fetchAddTask,
     fetchGetTask,
     fetchDeleteTask,
+    fetchUpdateTask,
     setTaskMessage,
+    setTaskToUpdate,
   };
 
   return (
