@@ -1,17 +1,15 @@
-import { useState } from "react";
 import Card from "../card/Card";
 import { Container, ListTasks, Title } from "./List.styles";
+import { useTask } from "@/presentation/context/task-context";
 
 const List: React.FC = () => {
-  const [tasks, setTasks] = useState([
-    "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Rerum a autem debitis molestias excepturi eos cum beatae quaerat praesentium optio, nostrum ut repellat suscipit necessitatibus? Necessitatibus recusandae quaerat molestiae ipsa!",
-  ]);
+  const { tasks } = useTask();
   return (
     <Container>
       <Title>Tarefas</Title>
       <ListTasks>
-        {tasks.map((el) => (
-          <Card key={el} task={el} />
+        {tasks.map((task) => (
+          <Card key={task.id} task={task} />
         ))}
       </ListTasks>
     </Container>

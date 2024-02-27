@@ -1,4 +1,7 @@
+import { GetTask } from "@/utils/api/usecases/protocols";
+
 export interface CardProps {
-  task: string;
+  key: string;
+  task: GetTask.Model;
   styles?: object;
 }
