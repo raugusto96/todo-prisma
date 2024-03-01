@@ -217,7 +217,7 @@ GET /api/task
 
 - Iniciar o app (WIP)
 
-- [ ] - Finalizado
+- [x] - Finalizado
 
 
 
