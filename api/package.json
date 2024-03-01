@@ -10,7 +10,8 @@
     "dev": "nodemon",
     "start": "node ./dist/server.js",
     "prisma:init": "prisma init --datasource-provider mongodb",
-    "generate": "prisma generate"
+    "generate": "prisma generate",
+    "postinstall": "prisma generate"
   },
   "devDependencies": {
     "@types/express": "^4.17.21",
