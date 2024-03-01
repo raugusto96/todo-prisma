@@ -1,8 +1,10 @@
 import styled from "styled-components";
 
 export const CardWrapper = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  column-gap: 1.3rem;
   align-items: center;
-  gap: 1rem;
-  height: 50px;
 `;
+
+export const CardTitle = styled.p``;
