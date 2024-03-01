@@ -5,7 +5,6 @@ import {
   HeaderItem,
   ListHeader,
   ListTasks,
-  Title,
 } from "./List.styles";
 import { useTask } from "@/presentation/context/task-context";
 import { LiaListAlt } from "react-icons/lia";
